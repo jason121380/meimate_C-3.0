@@ -454,11 +454,14 @@ export default {
     },
   },
   async mounted() {
-    await this.getMemberInfoAndRecored();
-    await this.getCustomerMembershipRecord();
-    this.getCloseCustomerBookingForCustomer();
-    this.getCustomerLatestReservation();
-    this.handleExternalLink();
+    // 所有 API 並行請求，不互相等待
+    const [memberResult] = await Promise.all([
+      this.getMemberInfoAndRecored(),
+      this.getCustomerMembershipRecord(),
+      this.getCloseCustomerBookingForCustomer(),
+      this.getCustomerLatestReservation(),
+      this.handleExternalLink(),
+    ]);
     this.getUrl();
     this.bindindLine();
     this.handleDisplay();
