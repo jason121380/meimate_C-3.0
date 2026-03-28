@@ -365,7 +365,9 @@ export default {
       const link = res.data.getLineBindLinkForCustomer
       const uri = window.location.origin
       localStorage.setItem('lineBindFrom', 'member')
-      this.windowAssign(link +`&redirect_uri=${uri}/lineRedirect?bindAccount=true`)
+      localStorage.setItem('lineBindAction', 'bind')
+      const redirectUri = encodeURIComponent(`${uri}/lineRedirect?bindAccount=true`)
+      this.windowAssign(link + `&redirect_uri=${redirectUri}`)
     },
     async bindindLine() {
       const merchant = JSON.parse(localStorage.getItem("merchant"));
