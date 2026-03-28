@@ -19,6 +19,7 @@ export default {
       status: 'success',
       orderId: '',
       showModal: false,
+      isBindAction: false,
       getLineData: false,
       lineModal: false,
       lineName: '',
@@ -296,7 +297,7 @@ export default {
         let url = `/member/line/check/${this.orderId}`
         this.$router.push(url);
       } else {
-        if (this.$route.query.bindAccount === 'true') {
+        if (this.$route.query.bindAccount === 'true' || this.isBindAction) {
           const fromPage = localStorage.getItem('lineBindFrom') || ''
           localStorage.removeItem('lineBindFrom')
           if (fromPage === 'member') {
@@ -332,7 +333,9 @@ export default {
         this.dot = ''
       }
     }, 800);
-    if (this.$route.query.bindAccount === 'true') {
+    this.isBindAction = this.$route.query.bindAccount === 'true' || localStorage.getItem('lineBindAction') === 'bind'
+    if (this.isBindAction) {
+      localStorage.removeItem('lineBindAction')
       await this.bindindLine()
     } else {
       this.getLineData = this.$route.query.getLineData === 'true'

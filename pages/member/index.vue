@@ -1,6 +1,15 @@
 <template>
   <div>
     <HomeHeader />
+
+    <!-- 頂部進度條 -->
+    <div v-if="pageLoading" class="fixed top-0 left-0 right-0 z-[100]">
+      <div class="h-[3px] bg-gray-100">
+        <div class="h-full bg-gmb-orange-500 transition-all duration-300 ease-out rounded-r-full"
+          :style="{ width: loadingProgress + '%' }"></div>
+      </div>
+    </div>
+
     <section class="w-full max-w-[768px] mx-auto">
       <div class="px-5 pt-6 pb-4 w-full">
 
@@ -270,6 +279,9 @@ export default {
       walletBalance: 0,
       bonusPoints: 0,
       showSettingModal: false,
+      pageLoading: true,
+      loadingProgress: 0,
+      loadingTimer: null,
     };
   },
   computed: {
@@ -287,6 +299,29 @@ export default {
     },
   },
   methods: {
+    startProgress() {
+      this.loadingProgress = 0
+      this.pageLoading = true
+      let step = 0
+      this.loadingTimer = setInterval(() => {
+        step++
+        // 快速跑到 85%，然後慢下來等 API 完成
+        if (this.loadingProgress < 30) {
+          this.loadingProgress += 8
+        } else if (this.loadingProgress < 60) {
+          this.loadingProgress += 4
+        } else if (this.loadingProgress < 85) {
+          this.loadingProgress += 1.5
+        }
+      }, 100)
+    },
+    finishProgress() {
+      clearInterval(this.loadingTimer)
+      this.loadingProgress = 100
+      setTimeout(() => {
+        this.pageLoading = false
+      }, 300)
+    },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
       this.handleUrl("服務滿意度調查", "rankingURL");
@@ -324,13 +359,15 @@ export default {
       this.externalLink = merchantCusExternalLink;
     },
     async handleGetBindLink() {
-      this.$store.dispatch("loading/isLoading", true);
       const merchant = JSON.parse(localStorage.getItem("merchant"));
       const res = await this.api.getLineBindLinkForCustomer(merchant.id);
+      if (res.hasError) return;
       const link = res.data.getLineBindLinkForCustomer
       const uri = window.location.origin
       localStorage.setItem('lineBindFrom', 'member')
-      this.windowAssign(link +`&redirect_uri=${uri}/lineRedirect?bindAccount=true`)
+      localStorage.setItem('lineBindAction', 'bind')
+      const redirectUri = encodeURIComponent(`${uri}/lineRedirect?bindAccount=true`)
+      this.windowAssign(link + `&redirect_uri=${redirectUri}`)
     },
     async bindindLine() {
       const merchant = JSON.parse(localStorage.getItem("merchant"));
@@ -358,10 +395,10 @@ export default {
     handleMenuClick(item) {
       if (item.label === "登出") return this.logOut();
       if (item.path) return this.$router.push(`${item.path}`);
-      if (item.url) return window.location.assign(item.url);
+      if (item.url) return (window.location.href = item.url);
     },
     windowAssign(url) {
-      window.location.assign(url);
+      window.location.href = url;
     },
     getTel(tel) {
       // 
@@ -454,11 +491,16 @@ export default {
     },
   },
   async mounted() {
-    await this.getMemberInfoAndRecored();
-    await this.getCustomerMembershipRecord();
-    this.getCloseCustomerBookingForCustomer();
-    this.getCustomerLatestReservation();
-    this.handleExternalLink();
+    this.startProgress()
+    // 所有 API 並行請求，不互相等待
+    const [memberResult] = await Promise.all([
+      this.getMemberInfoAndRecored(),
+      this.getCustomerMembershipRecord(),
+      this.getCloseCustomerBookingForCustomer(),
+      this.getCustomerLatestReservation(),
+      this.handleExternalLink(),
+    ]);
+    this.finishProgress()
     this.getUrl();
     this.bindindLine();
     this.handleDisplay();
@@ -482,6 +524,9 @@ export default {
       });
     }
     this.$store.dispatch('appointmentData/handleClearData')
+  },
+  beforeDestroy() {
+    clearInterval(this.loadingTimer)
   },
 };
 </script>
