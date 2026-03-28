@@ -258,7 +258,9 @@ export default {
     async bindindLine() {
       try {
         if (this.$route.query.code) {
+          const fromPage = this.$route.query.from || ''
           let url = `${window.location.origin}/lineRedirect?bindAccount=true`;
+          if (fromPage) url += `&from=${fromPage}`
           await this.api.customerBindWithLine({
             code: this.$route.query.code,
             endPoint: url,
@@ -274,7 +276,11 @@ export default {
             showConfirmButton: false,
             customClass: { popup: '!rounded-2xl !shadow-lg' }
           });
-          this.$router.push('/member/appointmentRecord?arrowDisplay=true');
+          if (fromPage === 'member') {
+            this.$router.push('/member');
+          } else {
+            this.$router.push('/member/appointmentRecord?arrowDisplay=true');
+          }
         }
       } catch (error) {
         this.showModal = true
@@ -291,7 +297,11 @@ export default {
         this.$router.push(url);
       } else {
         if (this.$route.query.bindAccount === 'true') {
-          this.$router.push('/member/appointmentRecord?arrowDisplay=true');
+          if (this.$route.query.from === 'member') {
+            this.$router.push('/member');
+          } else {
+            this.$router.push('/member/appointmentRecord?arrowDisplay=true');
+          }
         } else {
           this.$router.push('/member/appointment?getCacheData=true')
         }
