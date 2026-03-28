@@ -258,15 +258,15 @@ export default {
     async bindindLine() {
       try {
         if (this.$route.query.code) {
-          const fromPage = this.$route.query.from || ''
+          const fromPage = localStorage.getItem('lineBindFrom') || ''
           let url = `${window.location.origin}/lineRedirect?bindAccount=true`;
-          if (fromPage) url += `&from=${fromPage}`
           await this.api.customerBindWithLine({
             code: this.$route.query.code,
             endPoint: url,
             storeId: JSON.parse(localStorage.getItem('merchant'))?.id,
           })
           window.localStorage.removeItem('isLineBinded')
+          localStorage.removeItem('lineBindFrom')
           await this.$swal.fire({
             icon: "success",
             html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
@@ -297,7 +297,9 @@ export default {
         this.$router.push(url);
       } else {
         if (this.$route.query.bindAccount === 'true') {
-          if (this.$route.query.from === 'member') {
+          const fromPage = localStorage.getItem('lineBindFrom') || ''
+          localStorage.removeItem('lineBindFrom')
+          if (fromPage === 'member') {
             this.$router.push('/member');
           } else {
             this.$router.push('/member/appointmentRecord?arrowDisplay=true');
