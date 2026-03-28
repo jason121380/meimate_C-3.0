@@ -10,6 +10,22 @@
       </div>
     </div>
 
+    <!-- 下拉刷新指示器 -->
+    <div class="pull-refresh-indicator" :class="{ 'pull-refresh-indicator--visible': pullDistance > 0 }" :style="{ height: pullIndicatorHeight + 'px' }">
+      <div class="flex items-center justify-center h-full">
+        <svg v-if="isRefreshing" class="animate-spin w-6 h-6 text-gmb-orange-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+        </svg>
+        <template v-else>
+          <svg class="w-5 h-5 text-gray-400 transition-transform duration-200" :class="{ 'rotate-180': pullDistance >= pullThreshold }" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+          <span class="text-sm text-gray-400 ml-2">{{ pullDistance >= pullThreshold ? '放開刷新' : '下拉刷新' }}</span>
+        </template>
+      </div>
+    </div>
+
     <section class="w-full max-w-[768px] mx-auto">
       <div class="px-5 pt-6 pb-4 w-full">
 
@@ -282,9 +298,18 @@ export default {
       pageLoading: true,
       loadingProgress: 0,
       loadingTimer: null,
+      // 下拉刷新
+      pullDistance: 0,
+      pullThreshold: 60,
+      isRefreshing: false,
+      touchStartY: 0,
+      isTouching: false,
     };
   },
   computed: {
+    pullIndicatorHeight() {
+      return Math.min(this.pullDistance, this.pullThreshold + 20)
+    },
     isGetCloseCustomerBookingForCustomer() {
       return this.$store.state.merchant.isCloseCustomerBookingForCustomer;
     },
@@ -320,6 +345,48 @@ export default {
       setTimeout(() => {
         this.pageLoading = false
       }, 200)
+    },
+    async handlePullRefresh() {
+      this.isRefreshing = true
+      try {
+        await Promise.all([
+          this.getMemberInfoAndRecored(),
+          this.getCustomerMembershipRecord(),
+          this.getCloseCustomerBookingForCustomer(),
+          this.getCustomerLatestReservation(),
+          this.handleExternalLink(),
+        ]);
+        this.handleDisplay();
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.isRefreshing = false
+        this.pullDistance = 0
+      }
+    },
+    onTouchStart(e) {
+      const scrollContainer = document.querySelector('.app-scroll-container')
+      if (scrollContainer && scrollContainer.scrollTop <= 0 && !this.isRefreshing) {
+        this.touchStartY = e.touches[0].clientY
+        this.isTouching = true
+      }
+    },
+    onTouchMove(e) {
+      if (!this.isTouching) return
+      const diff = e.touches[0].clientY - this.touchStartY
+      if (diff > 0) {
+        this.pullDistance = Math.min(diff * 0.5, this.pullThreshold + 30)
+      }
+    },
+    onTouchEnd() {
+      if (!this.isTouching) return
+      this.isTouching = false
+      if (this.pullDistance >= this.pullThreshold) {
+        this.pullDistance = this.pullThreshold
+        this.handlePullRefresh()
+      } else {
+        this.pullDistance = 0
+      }
     },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
@@ -517,6 +584,14 @@ export default {
     },
   },
   async mounted() {
+    // 下拉刷新 touch 事件
+    const scrollContainer = document.querySelector('.app-scroll-container')
+    if (scrollContainer) {
+      scrollContainer.addEventListener('touchstart', this.onTouchStart, { passive: true })
+      scrollContainer.addEventListener('touchmove', this.onTouchMove, { passive: true })
+      scrollContainer.addEventListener('touchend', this.onTouchEnd)
+    }
+
     this.startProgress()
     // 所有 API 並行請求，不互相等待
     try {
@@ -559,9 +634,57 @@ export default {
       });
     }
     this.$store.dispatch('appointmentData/handleClearData')
+
+    // 偵測使用者從瀏覽器分頁切回 PWA，檢查 LINE 綁定結果
+    this._onVisibilityChange = async () => {
+      if (document.visibilityState !== 'visible') return
+      const resultStr = localStorage.getItem('lineBindResult')
+      if (!resultStr) return
+      try {
+        const result = JSON.parse(resultStr)
+        localStorage.removeItem('lineBindResult')
+        if (result.success) {
+          await this.getMemberInfoAndRecored()
+          this.$swal.fire({
+            icon: "success",
+            html: "<p class='text-base font-semibold text-gray-900'>LINE 帳號綁定成功</p>",
+            background: "#fff",
+            iconColor: "#FF6B2C",
+            timer: 3000,
+            showConfirmButton: false,
+            customClass: { popup: '!rounded-2xl !shadow-lg' }
+          });
+        } else {
+          this.$swal.fire({
+            icon: "error",
+            html: `<p class='text-base font-semibold text-gray-900'>${result.message || 'LINE 綁定失敗'}</p>`,
+            background: "#fff",
+            confirmButtonText: "我知道了",
+            customClass: {
+              popup: '!rounded-2xl !shadow-lg',
+              confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+            }
+          });
+        }
+      } catch (e) {
+        localStorage.removeItem('lineBindResult')
+      }
+      // 清除卡住的 loading
+      this.$store.dispatch('loading/isLoading', false)
+    }
+    document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
   beforeDestroy() {
     clearInterval(this.loadingTimer)
+    if (this._onVisibilityChange) {
+      document.removeEventListener('visibilitychange', this._onVisibilityChange)
+    }
+    const scrollContainer = document.querySelector('.app-scroll-container')
+    if (scrollContainer) {
+      scrollContainer.removeEventListener('touchstart', this.onTouchStart)
+      scrollContainer.removeEventListener('touchmove', this.onTouchMove)
+      scrollContainer.removeEventListener('touchend', this.onTouchEnd)
+    }
   },
 };
 </script>
@@ -597,5 +720,18 @@ export default {
 
 .menu-item:last-child {
   border-bottom: none;
+}
+
+.pull-refresh-indicator {
+  height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: height 0.2s ease;
+}
+
+.pull-refresh-indicator--visible {
+  transition: none;
 }
 </style>
