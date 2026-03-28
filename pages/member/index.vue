@@ -342,10 +342,12 @@ export default {
           await this.getMemberInfoAndRecored()
           this.$swal.fire({
             icon: "success",
-            html: "<p>Line 帳號綁定成功",
+            html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
             background: "#fff",
+            iconColor: "#FF6B2C",
             timer: 3000,
             showConfirmButton: false,
+            customClass: { popup: '!rounded-2xl !shadow-lg' }
           });
           this.$router.push({ path: "/", query: {} });
         }
@@ -370,6 +372,11 @@ export default {
           confirmButtonText: "登出",
           confirmButtonColor: "#FF6B2C",
           cancelButtonText: "取消",
+          customClass: {
+            popup: '!rounded-2xl !shadow-lg',
+            confirmButton: '!rounded-full !px-8',
+            cancelButton: '!rounded-full !px-8'
+          }
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -379,11 +386,12 @@ export default {
             this.$swal
               .fire({
                 icon: "success",
-                title: '<h3 class="text-2xl">會員已登出</h3>',
+                title: '<h3 class="text-xl font-semibold text-gray-900">會員已登出</h3>',
                 background: "#fff",
                 iconColor: "#FF6B2C",
                 timer: 1500,
                 showConfirmButton: false,
+                customClass: { popup: '!rounded-2xl !shadow-lg' }
               })
               .then(() => {
                 this.$router.push("/");

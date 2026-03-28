@@ -1,13 +1,6 @@
 <template>
   <section class="min-h-screen bg-[#FAFAFA]">
     <client-only v-if="!isLoading">
-      <!-- Header -->
-      <div class="w-full border-b border-gray-100 bg-white py-4 px-6">
-        <div class="max-w-[768px] mx-auto flex justify-center">
-          <img v-bind:src="'/logo.png'" alt="Meimate" class="w-36 h-10 object-contain cursor-pointer" @click="$router.push('/member')">
-        </div>
-      </div>
-
       <div class="w-full max-w-[768px] mx-auto px-5 pt-10 pb-8">
         <!-- 標題 -->
         <div class="mb-8 text-center" data-aos="fade-up" data-aos-once="true" data-aos-duration="500">

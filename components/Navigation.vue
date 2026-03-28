@@ -91,11 +91,12 @@ export default {
     showAlert() {
       this.$swal.fire({
         icon: "warning",
-        title: `<h3 class="text-2xl">功能尚未開放<br>Coming Soon</h3>`,
+        title: `<h3 class="text-xl font-semibold text-gray-900">功能尚未開放<br>Coming Soon</h3>`,
         background: "#fff",
-        iconColor: "#FEB401",
+        iconColor: "#FF6B2C",
         timer: 1500,
         showConfirmButton: false,
+        customClass: { popup: '!rounded-2xl !shadow-lg' }
       });
     },
     handleDisplay(newValue) {
@@ -119,11 +120,16 @@ export default {
     logOut() {
       this.$swal
         .fire({
-          html: `<p class="text-lg text-mm-accent font-bold">確定要登出嗎?</p>`,
+          html: `<p class="text-lg text-gray-900 font-bold">確定要登出嗎?</p>`,
           showCancelButton: true,
           confirmButtonText: "登出",
-          confirmButtonColor: "#1A1A2E",
+          confirmButtonColor: "#FF6B2C",
           cancelButtonText: "取消",
+          customClass: {
+            popup: '!rounded-2xl !shadow-lg',
+            confirmButton: '!rounded-full !px-8',
+            cancelButton: '!rounded-full !px-8'
+          }
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -132,14 +138,14 @@ export default {
             this.$swal
               .fire({
                 icon: "success",
-                title: '<h3 class="text-2xl">會員已登出</h3>',
+                title: '<h3 class="text-xl font-semibold text-gray-900">會員已登出</h3>',
                 background: "#fff",
-                iconColor: "#FEB401",
+                iconColor: "#FF6B2C",
                 timer: 1500,
                 showConfirmButton: false,
+                customClass: { popup: '!rounded-2xl !shadow-lg' }
               })
               .then(() => {
-                // this.$cookieMethods.removeToken()
                 this.$router.push("/");
                 setTimeout(() => {
                   location.reload();

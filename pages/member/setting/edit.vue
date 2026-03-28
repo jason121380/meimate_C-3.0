@@ -1,157 +1,115 @@
 <template>
   <section id="firstPos">
-    <div class="w-full max-w-[768px] mx-auto pb-[120px] px-5 sm:px-10 md:mt-6">
-      <Breadcrumb :title="'偏好設定'" />
-      <h4 v-pre class="text-lg mb-3 font-semibold text-gray-dark mt-10">選擇登入店家</h4>
+    <div class="w-full max-w-[768px] mx-auto pb-[120px] px-5 pt-6">
+
+      <!-- 標題 -->
+      <h1 class="text-xl font-bold text-gmb-orange-500 mb-6">偏好設定</h1>
+
+      <!-- 搜尋框 -->
+      <h4 v-pre class="text-base mb-3 font-semibold text-gray-900">選擇登入店家</h4>
       <div class="relative">
-        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect opacity="0.5" x="17.0365" y="15.1223" width="8.15546" height="2" rx="1"
-              transform="rotate(45 17.0365 15.1223)" fill="currentColor" />
-            <path
-              d="M11 19C6.55556 19 3 15.4444 3 11C3 6.55556 6.55556 3 11 3C15.4444 3 19 6.55556 19 11C19 15.4444 15.4444 19 11 19ZM11 5C7.53333 5 5 7.53333 5 11C5 14.4667 7.53333 17 11 17C14.4667 17 17 14.4667 17 11C17 7.53333 14.4667 5 11 5Z"
-              fill="currentColor" />
+        <div class="absolute inset-y-0 start-0 flex items-center ps-4 pointer-events-none">
+          <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
         </div>
         <input @input="searchMerchants()" v-model="searchInput" type="text" placeholder="搜尋關鍵字"
-          class="form-control form-control-sm form-control-solid w-full !px-4 !ps-10 text-sm" />
+          class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 ps-11 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors" />
       </div>
 
       <!-- 偏好門市 -->
       <!-- 預設門市 -->
       <div v-if="isShowDefault && defaultMerchant.id" class="mt-4">
-        <MemberGlobalCard :py="'py-4'" :px="'px-4'" data-aos="fade-up" data-aos-delay="100" data-aos-once="true"
-          data-aos-duration="300" data-aos-anchor="#firstPos">
-          <div @click="
-            searchDesigner(defaultMerchant.id), selectStore(defaultMerchant)
-            " class="card-body grid grid-cols-12 items-center w-full p-4">
-            <div class="col-span-5 relative">
-              <div
-                class="w-5 h-5 rounded-full border-2 border-mm-success flex justify-center items-center duration-300 scale-0"
-                :class="{ 'scale-100': isSelectedStore(defaultMerchant.id) }">
-                <i class="bi bi-check text-xl text-mm-success"/>
-              </div>
-              <h4 class="text-gray-dark line-clamp-1 duration-300 absolute left-0 top-1/2 -translate-y-1/2"
-                :class="{ 'left-8': isSelectedStore(defaultMerchant.id) }">
-                {{ defaultMerchant.name }}
-              </h4>
+        <div @click="searchDesigner(defaultMerchant.id), selectStore(defaultMerchant)"
+          data-aos="fade-up" data-aos-delay="100" data-aos-once="true" data-aos-duration="300" data-aos-anchor="#firstPos"
+          class="store-card cursor-pointer"
+          :class="{ 'store-card--active': isSelectedStore(defaultMerchant.id) }">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full flex justify-center items-center shrink-0 transition-all duration-300"
+              :class="isSelectedStore(defaultMerchant.id) ? 'bg-gmb-orange-500' : 'border-2 border-gray-200'">
+              <svg v-if="isSelectedStore(defaultMerchant.id)" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+              </svg>
             </div>
-            <div class="col-span-7">
-              <p class="text-gray text-sm line-clamp-1">{{ defaultMerchant.address }}</p>
-            </div>
+            <h4 class="text-[15px] font-medium text-gray-900 line-clamp-1">{{ defaultMerchant.name }}</h4>
           </div>
-        </MemberGlobalCard>
+          <p class="text-gray-400 text-xs mt-0.5 ml-9 line-clamp-1">{{ defaultMerchant.address }}</p>
+        </div>
       </div>
 
       <!-- 門市列表 -->
-      <div v-if="merchants.length > 0 && !merchantsIsNull" class="w-full mt-4">
-        <MemberGlobalCard v-for="(item, idx) in merchants" :key="item.id" :py="'py-4'" :px="'px-4'" data-aos="fade-up"
-          :data-aos-delay="idx * 100" data-aos-once="true" data-aos-duration="300" data-aos-anchor="#firstPos">
-          <div @click="searchDesigner(item.id), selectStore(item)" class="grid grid-cols-12 items-center w-full p-4">
-            <div class="col-span-5 relative">
-              <div
-                class="w-5 h-5 rounded-full border-2 border-mm-success flex justify-center items-center duration-300 scale-0"
-                :class="{ 'scale-100': isSelectedStore(item.id) }">
-                <i class="bi bi-check text-xl text-mm-success"/>
-              </div>
-              <h4 class="text-gray-dark line-clamp-1 duration-300 absolute left-0 top-1/2 -translate-y-1/2"
-                :class="{ 'left-8': isSelectedStore(item.id) }">
-                {{ item.name }}
-              </h4>
+      <div v-if="merchants.length > 0 && !merchantsIsNull" class="w-full mt-3 flex flex-col gap-3">
+        <div v-for="(item, idx) in merchants" :key="item.id"
+          @click="searchDesigner(item.id), selectStore(item)"
+          data-aos="fade-up" :data-aos-delay="idx * 100" data-aos-once="true" data-aos-duration="300" data-aos-anchor="#firstPos"
+          class="store-card cursor-pointer"
+          :class="{ 'store-card--active': isSelectedStore(item.id) }">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full flex justify-center items-center shrink-0 transition-all duration-300"
+              :class="isSelectedStore(item.id) ? 'bg-gmb-orange-500' : 'border-2 border-gray-200'">
+              <svg v-if="isSelectedStore(item.id)" class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+              </svg>
             </div>
-            <div class="col-span-7">
-              <p class="text-gray text-sm line-clamp-1">{{ item.address }}</p>
-            </div>
+            <h4 class="text-[15px] font-medium text-gray-900 line-clamp-1">{{ item.name }}</h4>
           </div>
-        </MemberGlobalCard>
-      </div>
-      <div v-if="merchantsIsNull && !isShowDefault" class="mt-6 text-center text-sm text-slate-500">
-        <div class="card-body flex justify-center items-center">
-          <div>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-              class=" text-mm-primary">
-              <path opacity="0.3"
-                d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
-                fill="currentColor" />
-              <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor" />
-              <rect x="7" y="12" width="10" height="2" rx="1" fill="currentColor" />
-              <rect x="7" y="7" width="6" height="2" rx="1" fill="currentColor" />
-              <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
-            </svg>
-          </div>
-          <div class=" text-mm-primary">查無門市</div>
+          <p class="text-gray-400 text-xs mt-0.5 ml-9 line-clamp-1">{{ item.address }}</p>
         </div>
+      </div>
+      <div v-if="merchantsIsNull && !isShowDefault" class="mt-6 text-center text-sm text-gray-400 py-8">
+        <svg class="w-6 h-6 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+        </svg>
+        查無門市
       </div>
 
       <ItemLoading />
 
       <!-- 選擇喜好設計師 -->
       <h4 v-pre data-aos="fade-up" data-aos-delay="100" data-aos-duration="300" data-aos-once="true"
-        data-aos-anchor="#firstPos" class="text-lg mt-12 font-semibold text-gray-dark">
+        data-aos-anchor="#firstPos" class="text-base mt-10 mb-4 font-semibold text-gray-900">
         選擇喜好設計師
       </h4>
-      <ul data-aos="fade-up" data-aos-delay="100" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
-        class="gap-4 mt-4" :class="{ 'pt-4': designers.length === 0 }">
+      <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
+        class="flex flex-col gap-3" :class="{ 'pt-4': designers.length === 0 }">
         <div v-if="searchingDesigners" class="min-h-[150px] w-full flex items-center justify-center">
-          <div class="border-4 border-t-mm-primary rounded-full w-10 h-10 animate-spin-slow"></div>
+          <div class="border-3 border-t-gmb-orange-500 border-gray-200 rounded-full w-10 h-10 animate-spin"></div>
         </div>
 
-        <span v-if="designers.length === 0 && !searchingDesigners">
-          <div class="card-body flex justify-center items-center">
-            <div>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
-                class=" text-mm-primary">
-                <path opacity="0.3"
-                  d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
-                  fill="currentColor" />
-                <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor" />
-                <rect x="7" y="12" width="10" height="2" rx="1" fill="currentColor" />
-                <rect x="7" y="7" width="6" height="2" rx="1" fill="currentColor" />
-                <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
-              </svg>
-            </div>
-            <div class=" text-mm-primary">查無資料</div>
-          </div>
-        </span>
+        <div v-if="designers.length === 0 && !searchingDesigners" class="text-center text-sm text-gray-400 py-8">
+          <svg class="w-6 h-6 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          查無資料
+        </div>
 
         <!-- 設計師列表 -->
-        <li @click="selectDesigner(item.id)" v-for="(item, idx) in designers" :key="item.id" data-aos="fade"
-          :data-aos-delay="100 + idx * 50" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
-          class="card card-body my-4">
-          <div class="flex items-center justify-between gap-2">
-            <div class="flex gap-2 w-11/12 items-center truncate">
-              <img :src="item.avatar" :alt="item.nameForCustomerSide"
-                class="w-10 h-10 rounded-full object-cover object-center select-none pointer-events-none" />
-              <div class="flex flex-col w-[80%]">
-                <div class="w-full overflow-hidden">
-                  <h4 v-overflow class="text-sm whitespace-nowrap inline-block">
-                    {{ item.nameForCustomerSide }}
-                  </h4>
-                </div>
-                <div v-if="item.selfIntroduction"  class="w-full overflow-hidden">
-                  <h4 v-overflow class="mt-1 text-xs text-light text-bs-gray-500 whitespace-nowrap inline-block">
-                    {{ item.selfIntroduction }}
-                  </h4>
-                </div>
-              </div> 
-            </div>
-            <div class="flex items-center gap-2 duration-300" :class="{
-                'scale-100': favoriteInfo.designer === item.id,
-                'scale-0': favoriteInfo.designer !== item.id,
-              }">
-              <div class="w-6 h-6 border-2 border-mm-success flex justify-center items-center rounded-full">
-                <i class="bi bi-check text-xl text-mm-success shrink-0"/>
-              </div>
+        <div v-for="(item, idx) in designers" :key="item.id"
+          @click="selectDesigner(item.id)"
+          data-aos="fade" :data-aos-delay="100 + idx * 50" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
+          class="designer-card"
+          :class="{ 'designer-card--active': favoriteInfo.designer === item.id }">
+          <div class="flex items-center gap-3">
+            <img :src="item.avatar" :alt="item.nameForCustomerSide"
+              class="w-11 h-11 rounded-full object-cover object-center flex-shrink-0 bg-gray-100" />
+            <div class="flex flex-col min-w-0">
+              <h4 class="text-[15px] font-medium text-gray-900 truncate">{{ item.nameForCustomerSide }}</h4>
+              <p v-if="item.selfIntroduction" class="text-xs text-gray-400 mt-0.5 truncate">{{ item.selfIntroduction }}</p>
             </div>
           </div>
-        </li>
-      </ul>
+          <div v-if="favoriteInfo.designer === item.id" class="check-icon shrink-0">
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
 
       <!-- 底部操作欄 -->
       <div class="fixed bottom-[56px] left-0 right-0 bg-white border-t border-gray-100 z-20 safe-area-bottom">
         <div class="max-w-[768px] mx-auto px-5 py-3">
           <button @click="saveFavorite"
-            class="w-full py-3.5 text-[15px] font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-sm"
+            class="w-full py-3.5 text-[15px] font-semibold rounded-full flex items-center justify-center gap-2 transition-all duration-300 shadow-sm"
             :class="{
               'bg-gray-200 text-gray-400 pointer-events-none': isChanging || !favoriteInfo.id,
               'bg-gmb-orange-500 text-white hover:bg-gmb-orange-600 shadow-gmb-orange-200/50': !isChanging && favoriteInfo.id,
@@ -393,6 +351,57 @@ export default {
 </script>
 
 <style scoped>
+.store-card {
+  padding: 14px 18px;
+  border: 1px solid #f0f0f0;
+  border-radius: 14px;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.store-card:hover {
+  border-color: #e5e5e5;
+  background: #fafafa;
+}
+
+.store-card--active {
+  border-color: #FF6B2C;
+  background: #FFF5F0;
+}
+
+.designer-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border: 1px solid #f0f0f0;
+  border-radius: 50rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.designer-card:hover {
+  border-color: #e5e5e5;
+  background: #fafafa;
+}
+
+.designer-card--active {
+  border-color: #FF6B2C;
+  background: #FFF5F0;
+}
+
+.check-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #FF6B2C;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .safe-area-bottom {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }

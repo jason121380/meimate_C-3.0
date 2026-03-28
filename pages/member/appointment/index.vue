@@ -202,7 +202,12 @@ export default {
         this.$swal.fire({
           icon: 'warning',
           title: '門市未開放線上預約',
-          confirmButtonColor: '#FF6B2C'
+          iconColor: '#FF6B2C',
+          confirmButtonColor: '#FF6B2C',
+          customClass: {
+            popup: '!rounded-2xl !shadow-lg',
+            confirmButton: '!rounded-full !px-8'
+          }
         }).then(() => {
           this.$router.push("/member");
         });
@@ -251,7 +256,12 @@ export default {
         this.$swal.fire({
           icon: 'warning',
           title: '門市未開放線上預約',
-          confirmButtonColor: '#FF6B2C'
+          iconColor: '#FF6B2C',
+          confirmButtonColor: '#FF6B2C',
+          customClass: {
+            popup: '!rounded-2xl !shadow-lg',
+            confirmButton: '!rounded-full !px-8'
+          }
         }).then(() => {
           this.$router.push("/member");
         });

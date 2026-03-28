@@ -65,12 +65,13 @@ service.interceptors.response.use((response) => {
       window.localStorage.clear()
       response.data.hasError = true
       Swal.fire({
-        icon: 'warning',
-        title: `<h3 class="text-lg">請重新登入。</h3>`,
+        icon: 'info',
+        title: `<h3 class="text-lg font-semibold text-gray-900">請重新登入</h3>`,
         background: '#fff',
-        iconColor: '#FEB401',
+        iconColor: '#FF6B2C',
         timer: 1500,
-        showConfirmButton: false
+        showConfirmButton: false,
+        customClass: { popup: '!rounded-2xl !shadow-lg' }
       })
         .then(() => {
           Vue.prototype.redirect('/')
@@ -80,13 +81,17 @@ service.interceptors.response.use((response) => {
         !response.data.errors[0].path.includes("customerCancelReservation") &&
         !response.data.errors[0].path.includes("getCachedBookingData")
       ) {
+        const msg = response.data.errors[0].message
+        const isLoginError = msg.includes('密碼') || msg.includes('登入')
+        const displayMsg = isLoginError ? '手機號碼或密碼錯誤，請按忘記密碼收取簡訊驗證' : msg
         Swal.fire({
           icon: 'warning',
-          title: `<h3 class="text-lg">${response.data.errors[0].message}</h3>`,
+          html: `<h3 class="text-base font-semibold text-gray-900">${displayMsg}</h3>`,
           background: '#fff',
-          iconColor: '#FEB401',
+          iconColor: '#FF6B2C',
           timer: 5000,
-          showConfirmButton: false
+          showConfirmButton: false,
+          customClass: { popup: '!rounded-2xl !shadow-lg' }
         })
       }
       response.data.hasError = true
@@ -104,12 +109,13 @@ service.interceptors.response.use((response) => {
         removeToken()
         window.localStorage.clear()
         Swal.fire({
-          icon: 'warning',
+          icon: 'info',
           background: '#fff',
-          iconColor: '#FEB401',
-          html: `<h3 class="text-lg">請重新登入。</h3>`,
+          iconColor: '#FF6B2C',
+          html: `<h3 class="text-lg font-semibold text-gray-900">請重新登入</h3>`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          customClass: { popup: '!rounded-2xl !shadow-lg' }
         })
           .then(() => {
             Vue.prototype.store.dispatch('loading/isLoading', false)
@@ -121,10 +127,11 @@ service.interceptors.response.use((response) => {
         Swal.fire({
           icon: 'warning',
           background: '#fff',
-          iconColor: '#FEB401',
-          html: `<h3 class="text-lg">發生錯誤，請稍後再試。</h3>`,
+          iconColor: '#FF6B2C',
+          html: `<h3 class="text-lg font-semibold text-gray-900">發生錯誤，請稍後再試</h3>`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          customClass: { popup: '!rounded-2xl !shadow-lg' }
         })
         Vue.prototype.store.dispatch('loading/isLoading', false)
         Vue.prototype.store.dispatch('itemLoading/isLoading', false)
@@ -133,10 +140,11 @@ service.interceptors.response.use((response) => {
         Swal.fire({
           icon: 'warning',
           background: '#fff',
-          iconColor: '#FEB401',
-          html: `<h3 class="text-lg">發生錯誤，請稍後再試。</h3>`,
+          iconColor: '#FF6B2C',
+          html: `<h3 class="text-lg font-semibold text-gray-900">發生錯誤，請稍後再試</h3>`,
           showConfirmButton: false,
-          timer: 1500
+          timer: 1500,
+          customClass: { popup: '!rounded-2xl !shadow-lg' }
         })
         Vue.prototype.store.dispatch('loading/isLoading', false)
         Vue.prototype.store.dispatch('itemLoading/isLoading', false)

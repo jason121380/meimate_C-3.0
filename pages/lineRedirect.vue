@@ -267,10 +267,12 @@ export default {
           window.localStorage.removeItem('isLineBinded')
           await this.$swal.fire({
             icon: "success",
-            html: "<p>Line 帳號綁定成功</p>",
+            html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
             background: "#fff",
+            iconColor: "#FF6B2C",
             timer: 3000,
             showConfirmButton: false,
+            customClass: { popup: '!rounded-2xl !shadow-lg' }
           });
           this.$router.push('/member/appointmentRecord?arrowDisplay=true');
         }
