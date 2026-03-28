@@ -1,5 +1,5 @@
 <template>
-    <section class="member__container w-full h-[calc(100%-3.5rem)] lg:pt-0 overflow-y-auto overflow-x-hidden overflow-visible bg-[#FAFAFA]"
+    <section class="member__container w-full min-h-full lg:pt-0 bg-[#FAFAFA]"
       :class="[routeIsMember ? ' pb-4' : 'pb-8']"
     >
       <nuxt-child />
