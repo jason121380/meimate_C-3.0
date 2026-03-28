@@ -302,25 +302,24 @@ export default {
     startProgress() {
       this.loadingProgress = 0
       this.pageLoading = true
-      let step = 0
       this.loadingTimer = setInterval(() => {
-        step++
-        // 快速跑到 85%，然後慢下來等 API 完成
-        if (this.loadingProgress < 30) {
-          this.loadingProgress += 8
-        } else if (this.loadingProgress < 60) {
-          this.loadingProgress += 4
-        } else if (this.loadingProgress < 85) {
-          this.loadingProgress += 1.5
+        if (this.loadingProgress < 40) {
+          this.loadingProgress += 12
+        } else if (this.loadingProgress < 70) {
+          this.loadingProgress += 6
+        } else if (this.loadingProgress < 90) {
+          this.loadingProgress += 2
+        } else if (this.loadingProgress < 98) {
+          this.loadingProgress += 0.3
         }
-      }, 100)
+      }, 80)
     },
     finishProgress() {
       clearInterval(this.loadingTimer)
       this.loadingProgress = 100
       setTimeout(() => {
         this.pageLoading = false
-      }, 300)
+      }, 200)
     },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
@@ -372,23 +371,50 @@ export default {
     async bindindLine() {
       const merchant = JSON.parse(localStorage.getItem("merchant"));
       if (this.$route.query.code && !this.memberInfo.lineId) {
-        const res = await this.api.customerBindWithLine({
-          code: this.$route.query.code,
-          endPoint: window.location.origin + '/member',
-          storeId: merchant.id
-        })
-        if (res.data.customerBindWithLine) {
-          await this.getMemberInfoAndRecored()
+        try {
+          const res = await this.api.customerBindWithLine({
+            code: this.$route.query.code,
+            endPoint: window.location.origin + '/member',
+            storeId: merchant.id
+          })
+          if (res.hasError) {
+            this.$swal.fire({
+              icon: "error",
+              html: "<p class='text-base font-semibold text-gray-900'>此 LINE 帳號已綁定其他手機號碼，請先解除綁定後再試</p>",
+              background: "#fff",
+              confirmButtonText: "我知道了",
+              customClass: {
+                popup: '!rounded-2xl !shadow-lg',
+                confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+              }
+            });
+            return
+          }
+          if (res.data.customerBindWithLine) {
+            await this.getMemberInfoAndRecored()
+            this.$swal.fire({
+              icon: "success",
+              html: "<p class='text-base font-semibold text-gray-900'>LINE 帳號綁定成功</p>",
+              background: "#fff",
+              iconColor: "#FF6B2C",
+              timer: 3000,
+              showConfirmButton: false,
+              customClass: { popup: '!rounded-2xl !shadow-lg' }
+            });
+            this.$router.push({ path: "/", query: {} });
+          }
+        } catch (err) {
+          console.log(err)
           this.$swal.fire({
-            icon: "success",
-            html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
+            icon: "error",
+            html: "<p class='text-base font-semibold text-gray-900'>LINE 綁定失敗，請稍後再試</p>",
             background: "#fff",
-            iconColor: "#FF6B2C",
-            timer: 3000,
-            showConfirmButton: false,
-            customClass: { popup: '!rounded-2xl !shadow-lg' }
+            confirmButtonText: "我知道了",
+            customClass: {
+              popup: '!rounded-2xl !shadow-lg',
+              confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+            }
           });
-          this.$router.push({ path: "/", query: {} });
         }
       }
     },
@@ -493,18 +519,27 @@ export default {
   async mounted() {
     this.startProgress()
     // 所有 API 並行請求，不互相等待
-    const [memberResult] = await Promise.all([
-      this.getMemberInfoAndRecored(),
-      this.getCustomerMembershipRecord(),
-      this.getCloseCustomerBookingForCustomer(),
-      this.getCustomerLatestReservation(),
-      this.handleExternalLink(),
-    ]);
-    this.finishProgress()
+    try {
+      await Promise.all([
+        this.getMemberInfoAndRecored(),
+        this.getCustomerMembershipRecord(),
+        this.getCloseCustomerBookingForCustomer(),
+        this.getCustomerLatestReservation(),
+        this.handleExternalLink(),
+      ]);
+    } catch (err) {
+      console.log(err)
+    } finally {
+      this.finishProgress()
+    }
     this.getUrl();
     this.bindindLine();
     this.handleDisplay();
-    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
+    try {
+      this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.getItem('merchant'))?.isBookingCheckinEnabled)
+    } catch (e) {
+      this.isBookingCheckinEnabled = false
+    }
     if (localStorage.getItem('isLineBinded') !== undefined && localStorage.getItem('isLineBinded') === 'false') {
       localStorage.removeItem('isLineBinded')
       Swal.fire({
