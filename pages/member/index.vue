@@ -302,25 +302,24 @@ export default {
     startProgress() {
       this.loadingProgress = 0
       this.pageLoading = true
-      let step = 0
       this.loadingTimer = setInterval(() => {
-        step++
-        // 快速跑到 85%，然後慢下來等 API 完成
-        if (this.loadingProgress < 30) {
-          this.loadingProgress += 8
-        } else if (this.loadingProgress < 60) {
-          this.loadingProgress += 4
-        } else if (this.loadingProgress < 85) {
-          this.loadingProgress += 1.5
+        if (this.loadingProgress < 40) {
+          this.loadingProgress += 12
+        } else if (this.loadingProgress < 70) {
+          this.loadingProgress += 6
+        } else if (this.loadingProgress < 90) {
+          this.loadingProgress += 2
+        } else if (this.loadingProgress < 98) {
+          this.loadingProgress += 0.3
         }
-      }, 100)
+      }, 80)
     },
     finishProgress() {
       clearInterval(this.loadingTimer)
       this.loadingProgress = 100
       setTimeout(() => {
         this.pageLoading = false
-      }, 300)
+      }, 200)
     },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
@@ -493,18 +492,27 @@ export default {
   async mounted() {
     this.startProgress()
     // 所有 API 並行請求，不互相等待
-    const [memberResult] = await Promise.all([
-      this.getMemberInfoAndRecored(),
-      this.getCustomerMembershipRecord(),
-      this.getCloseCustomerBookingForCustomer(),
-      this.getCustomerLatestReservation(),
-      this.handleExternalLink(),
-    ]);
-    this.finishProgress()
+    try {
+      await Promise.all([
+        this.getMemberInfoAndRecored(),
+        this.getCustomerMembershipRecord(),
+        this.getCloseCustomerBookingForCustomer(),
+        this.getCustomerLatestReservation(),
+        this.handleExternalLink(),
+      ]);
+    } catch (err) {
+      console.log(err)
+    } finally {
+      this.finishProgress()
+    }
     this.getUrl();
     this.bindindLine();
     this.handleDisplay();
-    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
+    try {
+      this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.getItem('merchant'))?.isBookingCheckinEnabled)
+    } catch (e) {
+      this.isBookingCheckinEnabled = false
+    }
     if (localStorage.getItem('isLineBinded') !== undefined && localStorage.getItem('isLineBinded') === 'false') {
       localStorage.removeItem('isLineBinded')
       Swal.fire({
