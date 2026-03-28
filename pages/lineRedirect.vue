@@ -13,6 +13,7 @@ export default {
   data() {
     return {
       dot: '',
+      dotTimer: null,
       liffId: '',
       modalContent: '',
       timer: 0,
@@ -325,8 +326,11 @@ export default {
       }
     }
   },
+  beforeDestroy() {
+    if (this.dotTimer) clearInterval(this.dotTimer)
+  },
   async mounted() {
-    setInterval(() => {
+    this.dotTimer = setInterval(() => {
       if (this.dot.length < 3) {
         this.dot += '.'
       } else {

@@ -748,6 +748,7 @@ export default {
     },
     async getVerifyCode() {
       this.getingCode = true;
+      let smsTimer = null;
 
       this.$api
         .customerLoginSMSWithTKN(this.cellphone, this.merchantId, this.designerId)
@@ -755,9 +756,9 @@ export default {
           this.getingCode = false;
           this.getCodeWaitingTimer = 60;
 
-          const timer = setInterval(() => {
+          smsTimer = setInterval(() => {
             if (this.getCodeWaitingTimer <= 1) {
-              clearInterval(timer);
+              clearInterval(smsTimer);
               this.getCodeWaitingTimer = null;
             } else {
               this.getCodeWaitingTimer--;
@@ -770,12 +771,12 @@ export default {
             this.timer = 1500
             this.showModal = true
           } else {
-            clearInterval(timer);
+            clearInterval(smsTimer);
             this.getCodeWaitingTimer = null;
           }
         })
         .catch((error) => {
-          clearInterval(timer);
+          if (smsTimer) clearInterval(smsTimer);
           this.getCodeWaitingTimer = null;
           this.getingCode = false;
           this.status = 'error'
@@ -875,13 +876,18 @@ export default {
     },
     async handleGetBindLink() {
       this.$store.dispatch("loading/isLoading", true);
-      const res = await this.api.getLineBindLinkForCustomer(this.$store.state.appointmentData.merchantId);
-      const link = res.data.getLineBindLinkForCustomer
-      let url = `${window.location.origin}/lineRedirect`;
-      if (this.isNewCus) {
-        url += '?getLineData=true'
+      try {
+        const res = await this.api.getLineBindLinkForCustomer(this.$store.state.appointmentData.merchantId);
+        const link = res.data.getLineBindLinkForCustomer
+        let url = `${window.location.origin}/lineRedirect`;
+        if (this.isNewCus) {
+          url += '?getLineData=true'
+        }
+        window.location.href = link +`&redirect_uri=${url}`
+      } catch (err) {
+        console.log(err);
+        this.$store.dispatch("loading/isLoading", false);
       }
-      window.location.href = link +`&redirect_uri=${url}`
     },
     async lineLogin() {
       await this.handleSetCacheData()

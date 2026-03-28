@@ -232,6 +232,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.$store.dispatch("loading/isLoading", false);
         });
     },
     async customerSelfUpdate() {
@@ -251,15 +252,23 @@ export default {
         address: this.memberInfo.address ? this.memberInfo.address : "",
       };
 
-      let resp = await this.api.customerSelfUpdate(inputData, "category");
-      if (resp.hasError) return;
-      if (isNewCustomer && merchantId) {
-        await this.api.applyCustomerPersoanlDataToMerchant({ merchantId: merchantId });
-      }
-      if (isNewCustomer) localStorage.setItem("isNewCustomer", false);
+      try {
+        let resp = await this.api.customerSelfUpdate(inputData, "category");
+        if (resp.hasError) {
+          this.$store.dispatch("loading/isLoading", false);
+          return;
+        }
+        if (isNewCustomer && merchantId) {
+          await this.api.applyCustomerPersoanlDataToMerchant({ merchantId: merchantId });
+        }
+        if (isNewCustomer) localStorage.setItem("isNewCustomer", false);
 
-      this.$store.dispatch("loading/isLoading", false);
-      this.showSuccessModal = true
+        this.$store.dispatch("loading/isLoading", false);
+        this.showSuccessModal = true
+      } catch (err) {
+        console.log(err);
+        this.$store.dispatch("loading/isLoading", false);
+      }
     },
     async getInputSetting() {
       try {

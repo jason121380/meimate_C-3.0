@@ -87,6 +87,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.$store.dispatch('loading/isLoading', false)
         })
     },
     // 滾動取得紀錄
@@ -121,6 +122,7 @@ export default {
           .catch((err) => {
             this.isGetting = false
             console.log(err)
+            this.$store.dispatch('itemLoading/isLoading', false)
           })
 
       }

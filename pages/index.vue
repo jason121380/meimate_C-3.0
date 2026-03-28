@@ -166,18 +166,20 @@ export default {
           const phoneRef = this.$refs.phoneRef
           phoneRef.focus()
         }, 300)
+        return
       }
 
       this.getingCode = true
+      let smsTimer = null
 
       this.$api.customerLoginSMSWithTKN(this.member.phone)
         .then((res) => {
           this.getingCode = false
           this.getCodeWaitingTimer = 60
 
-          const timer = setInterval(() => {
+          smsTimer = setInterval(() => {
             if (this.getCodeWaitingTimer <= 1) {
-              clearInterval(timer)
+              clearInterval(smsTimer)
               this.getCodeWaitingTimer = null
             } else {
               this.getCodeWaitingTimer--
@@ -190,12 +192,12 @@ export default {
             this.status = 'success'
             this.showModal = true
           } else {
-            clearInterval(timer)
+            clearInterval(smsTimer)
             this.getCodeWaitingTimer = null
           }
         })
         .catch((err) => {
-          clearInterval(timer)
+          if (smsTimer) clearInterval(smsTimer)
           console.log(err)
           this.getCodeWaitingTimer = null
           this.getingCode = false
@@ -266,7 +268,7 @@ export default {
               localStorage.setItem("isNewCustomer", JSON.stringify(res.data.customerVerifySMSWithTKN.isNewCustomer));
               let isNewCustomerAndNomerchant = JSON.parse(localStorage.getItem("isNewCustomer")) ? true : false
               localStorage.setItem("isNewCustomerAndNomerchant", isNewCustomerAndNomerchant);
-              if (this,this.merchantId) {
+              if (this.merchantId) {
                 this.api.updateCustomerCuttentMerchant(this.merchantId).then(() => {
                   this.customerGetCurrentMerchantSetting()
                 })
@@ -293,7 +295,7 @@ export default {
               localStorage.setItem("isNewCustomer", JSON.stringify(res.data.customerLoginWithPassword.isNewCustomer));
               let isNewCustomerAndNomerchant = JSON.parse(localStorage.getItem("isNewCustomer")) ? true : false
               localStorage.setItem("isNewCustomerAndNomerchant", isNewCustomerAndNomerchant);
-              if (this,this.merchantId) {
+              if (this.merchantId) {
                 this.api.updateCustomerCuttentMerchant(this.merchantId).then(() => {
                   this.customerGetCurrentMerchantSetting()
                 })

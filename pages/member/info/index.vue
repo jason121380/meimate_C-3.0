@@ -146,6 +146,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.$store.dispatch('loading/isLoading', false)
         })
     },
     // 取得會員卡片
@@ -171,6 +172,7 @@ export default {
         })
         .catch((err) => {
           console.log(err)
+          this.$store.dispatch('itemLoading/isLoading', false)
         })
     },
     // 打開密碼彈窗
