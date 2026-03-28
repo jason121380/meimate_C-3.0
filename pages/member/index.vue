@@ -371,23 +371,50 @@ export default {
     async bindindLine() {
       const merchant = JSON.parse(localStorage.getItem("merchant"));
       if (this.$route.query.code && !this.memberInfo.lineId) {
-        const res = await this.api.customerBindWithLine({
-          code: this.$route.query.code,
-          endPoint: window.location.origin + '/member',
-          storeId: merchant.id
-        })
-        if (res.data.customerBindWithLine) {
-          await this.getMemberInfoAndRecored()
+        try {
+          const res = await this.api.customerBindWithLine({
+            code: this.$route.query.code,
+            endPoint: window.location.origin + '/member',
+            storeId: merchant.id
+          })
+          if (res.hasError) {
+            this.$swal.fire({
+              icon: "error",
+              html: "<p class='text-base font-semibold text-gray-900'>此 LINE 帳號已綁定其他手機號碼，請先解除綁定後再試</p>",
+              background: "#fff",
+              confirmButtonText: "我知道了",
+              customClass: {
+                popup: '!rounded-2xl !shadow-lg',
+                confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+              }
+            });
+            return
+          }
+          if (res.data.customerBindWithLine) {
+            await this.getMemberInfoAndRecored()
+            this.$swal.fire({
+              icon: "success",
+              html: "<p class='text-base font-semibold text-gray-900'>LINE 帳號綁定成功</p>",
+              background: "#fff",
+              iconColor: "#FF6B2C",
+              timer: 3000,
+              showConfirmButton: false,
+              customClass: { popup: '!rounded-2xl !shadow-lg' }
+            });
+            this.$router.push({ path: "/", query: {} });
+          }
+        } catch (err) {
+          console.log(err)
           this.$swal.fire({
-            icon: "success",
-            html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
+            icon: "error",
+            html: "<p class='text-base font-semibold text-gray-900'>LINE 綁定失敗，請稍後再試</p>",
             background: "#fff",
-            iconColor: "#FF6B2C",
-            timer: 3000,
-            showConfirmButton: false,
-            customClass: { popup: '!rounded-2xl !shadow-lg' }
+            confirmButtonText: "我知道了",
+            customClass: {
+              popup: '!rounded-2xl !shadow-lg',
+              confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+            }
           });
-          this.$router.push({ path: "/", query: {} });
         }
       }
     },

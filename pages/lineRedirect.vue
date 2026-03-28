@@ -262,16 +262,36 @@ export default {
         if (this.$route.query.code) {
           const fromPage = localStorage.getItem('lineBindFrom') || ''
           let url = `${window.location.origin}/lineRedirect?bindAccount=true`;
-          await this.api.customerBindWithLine({
+          const res = await this.api.customerBindWithLine({
             code: this.$route.query.code,
             endPoint: url,
             storeId: JSON.parse(localStorage.getItem('merchant'))?.id,
           })
+          if (res.hasError) {
+            window.localStorage.removeItem('isLineBinded')
+            localStorage.removeItem('lineBindFrom')
+            await this.$swal.fire({
+              icon: "error",
+              html: "<p class='text-base font-semibold text-gray-900'>此 LINE 帳號已綁定其他手機號碼，請先解除綁定後再試</p>",
+              background: "#fff",
+              confirmButtonText: "我知道了",
+              customClass: {
+                popup: '!rounded-2xl !shadow-lg',
+                confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+              }
+            });
+            if (fromPage === 'member') {
+              this.$router.push('/member');
+            } else {
+              this.$router.push('/member/appointmentRecord?arrowDisplay=true');
+            }
+            return
+          }
           window.localStorage.removeItem('isLineBinded')
           localStorage.removeItem('lineBindFrom')
           await this.$swal.fire({
             icon: "success",
-            html: "<p class='text-base font-semibold text-gray-900'>Line 帳號綁定成功</p>",
+            html: "<p class='text-base font-semibold text-gray-900'>LINE 帳號綁定成功</p>",
             background: "#fff",
             iconColor: "#FF6B2C",
             timer: 3000,
@@ -285,10 +305,19 @@ export default {
           }
         }
       } catch (error) {
-        this.showModal = true
-        this.modalContent = error.message
-        this.timer = 1500
-        this.status = 'error'
+        console.log(error)
+        localStorage.removeItem('lineBindFrom')
+        await this.$swal.fire({
+          icon: "error",
+          html: "<p class='text-base font-semibold text-gray-900'>LINE 綁定失敗，請稍後再試</p>",
+          background: "#fff",
+          confirmButtonText: "我知道了",
+          customClass: {
+            popup: '!rounded-2xl !shadow-lg',
+            confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+          }
+        });
+        this.$router.push('/member');
       }
     },
     
