@@ -185,13 +185,18 @@ export default {
     },
     async handleGetBindLink() {
       this.$store.dispatch("loading/isLoading", true);
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
-      const res = await this.api.getLineBindLinkForCustomer(merchant.id);
-      const link = res.data.getLineBindLinkForCustomer
-      const uri = window.location.origin
-      localStorage.setItem('lineBindAction', 'bind')
-      const redirectUri = encodeURIComponent(`${uri}/lineRedirect?bindAccount=true`)
-      this.windowAssign(link + `&redirect_uri=${redirectUri}`)
+      try {
+        const merchant = JSON.parse(localStorage.getItem("merchant"));
+        const res = await this.api.getLineBindLinkForCustomer(merchant.id);
+        const link = res.data.getLineBindLinkForCustomer
+        const uri = window.location.origin
+        localStorage.setItem('lineBindAction', 'bind')
+        const redirectUri = encodeURIComponent(`${uri}/lineRedirect?bindAccount=true`)
+        this.windowAssign(link + `&redirect_uri=${redirectUri}`)
+      } catch (err) {
+        console.log(err);
+        this.$store.dispatch("loading/isLoading", false);
+      }
     },
     onBindLineClose(type) {
       if (type === 'comfirm') {
@@ -259,7 +264,10 @@ export default {
         this.getBookingPeerDisplay()
       ]).then(
       () => (this.isLoading = false)
-    );
+    ).catch((err) => {
+      console.log(err)
+      this.isLoading = false
+    });
   },
 };
 </script>

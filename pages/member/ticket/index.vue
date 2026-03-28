@@ -116,7 +116,7 @@ export default {
     return {
       tickets: [],
       merchants: JSON.parse(window.localStorage.getItem('allMerchants')) || [],
-      selectStore: '36745cd0-85fa-4d87-bc7f-30c119d7525d"',
+      selectStore: '',
       showRecord: false,
       cacheRecord: {},
       display: true,
@@ -150,6 +150,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.$store.dispatch('loading/isLoading', false);
         });
     }
   },

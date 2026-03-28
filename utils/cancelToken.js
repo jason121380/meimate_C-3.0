@@ -17,7 +17,7 @@ export function cancelAllPending() {
   RequestPending.forEach((api) => {
     api.cancel()
   })
-  RequestPending = []
+  RequestPending.length = 0
 
   Vue.prototype.store.dispatch('loading/isLoading', false)
   Vue.prototype.store.dispatch('itemLoading/isLoading', false)
@@ -27,10 +27,15 @@ export function cacelPendingForBookingRecords() {
   RequestPending.forEach((api) => {
     api.cancel()
   })
-  RequestPending = []
+  RequestPending.length = 0
 }
 
 // response後清除特定api
 export function clearRequestPending(config, query) {
-  RequestPending = RequestPending.filter((api) => api.uuid !== `${config.url}&${config.method}${query}`)
+  const target = `${config.url}&${config.method}${query}`
+  for (let i = RequestPending.length - 1; i >= 0; i--) {
+    if (RequestPending[i].uuid === target) {
+      RequestPending.splice(i, 1)
+    }
+  }
 }
