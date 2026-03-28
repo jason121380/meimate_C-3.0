@@ -1,5 +1,5 @@
 <template>
-  <section id="firstPos" class="w-full max-w-[768px] mx-auto pb-16 min-h-screen">
+  <section id="firstPos" class="w-full max-w-[768px] mx-auto pb-16 min-h-full">
     <div class="px-5 pt-6 w-full">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6">

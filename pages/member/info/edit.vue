@@ -1,5 +1,5 @@
 <template>
-  <section id="firstPos" v-if="!isLoading" class="w-full max-w-[768px] mx-auto pb-20 bg-gray-50/50 min-h-screen">
+  <section id="firstPos" v-if="!isLoading" class="w-full max-w-[768px] mx-auto pb-20 bg-gray-50/50 min-h-full">
     <div class="px-5 pt-6 w-full">
       <!-- 頂端導覽列 + 返回按鈕 -->
       <div class="flex items-center justify-between mb-6 relative">

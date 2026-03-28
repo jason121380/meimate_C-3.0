@@ -413,12 +413,13 @@ export default {
   background: white;
 }
 
-.service-card:hover {
+.service-card:hover:not(.service-card--active) {
   border-color: #e5e5e5;
   background: #fafafa;
 }
 
-.service-card--active {
+.service-card--active,
+.service-card--active:hover {
   border-color: #FF6B2C;
   background: #FFF5F0;
 }
