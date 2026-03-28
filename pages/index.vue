@@ -23,7 +23,11 @@
                         id="phoneInput" type="tel"
                         class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
                         placeholder="請輸入手機號碼"
-                        :class="{ '!border-red-400': errors.length > 0 }">
+                        :class="{ '!border-red-400': errors.length > 0, '!bg-gray-100 !text-gray-500': readonly }">
+                      <button v-if="readonly" @click="resetToStep1" type="button"
+                        class="absolute right-1.5 top-1 bottom-1 px-4 text-gmb-orange-500 text-sm font-medium rounded-full hover:bg-gmb-orange-100/30 transition-colors">
+                        修改
+                      </button>
                       <span v-if="errors.length > 0" class="absolute left-4 -bottom-5 text-red-400 text-xs">{{
                         errors[0] }}</span>
                     </ValidationProvider>
@@ -143,6 +147,14 @@ export default {
     }
   },
   methods: {
+    resetToStep1() {
+      this.step = 1
+      this.member.verifyCode = ''
+      this.member.password = ''
+      this.$nextTick(() => {
+        this.$refs.phoneRef?.focus()
+      })
+    },
     getVerifyCode() {
       if (!this.member.phone) {
         this.modalContent = '請輸入手機號碼'
