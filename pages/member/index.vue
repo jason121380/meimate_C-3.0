@@ -1,6 +1,15 @@
 <template>
   <div>
     <HomeHeader />
+
+    <!-- 頂部進度條 -->
+    <div v-if="pageLoading" class="fixed top-0 left-0 right-0 z-[100]">
+      <div class="h-[3px] bg-gray-100">
+        <div class="h-full bg-gmb-orange-500 transition-all duration-300 ease-out rounded-r-full"
+          :style="{ width: loadingProgress + '%' }"></div>
+      </div>
+    </div>
+
     <section class="w-full max-w-[768px] mx-auto">
       <div class="px-5 pt-6 pb-4 w-full">
 
@@ -270,6 +279,9 @@ export default {
       walletBalance: 0,
       bonusPoints: 0,
       showSettingModal: false,
+      pageLoading: true,
+      loadingProgress: 0,
+      loadingTimer: null,
     };
   },
   computed: {
@@ -287,6 +299,29 @@ export default {
     },
   },
   methods: {
+    startProgress() {
+      this.loadingProgress = 0
+      this.pageLoading = true
+      let step = 0
+      this.loadingTimer = setInterval(() => {
+        step++
+        // 快速跑到 85%，然後慢下來等 API 完成
+        if (this.loadingProgress < 30) {
+          this.loadingProgress += 8
+        } else if (this.loadingProgress < 60) {
+          this.loadingProgress += 4
+        } else if (this.loadingProgress < 85) {
+          this.loadingProgress += 1.5
+        }
+      }, 100)
+    },
+    finishProgress() {
+      clearInterval(this.loadingTimer)
+      this.loadingProgress = 100
+      setTimeout(() => {
+        this.pageLoading = false
+      }, 300)
+    },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
       this.handleUrl("服務滿意度調查", "rankingURL");
@@ -454,6 +489,7 @@ export default {
     },
   },
   async mounted() {
+    this.startProgress()
     // 所有 API 並行請求，不互相等待
     const [memberResult] = await Promise.all([
       this.getMemberInfoAndRecored(),
@@ -462,6 +498,7 @@ export default {
       this.getCustomerLatestReservation(),
       this.handleExternalLink(),
     ]);
+    this.finishProgress()
     this.getUrl();
     this.bindindLine();
     this.handleDisplay();
@@ -485,6 +522,9 @@ export default {
       });
     }
     this.$store.dispatch('appointmentData/handleClearData')
+  },
+  beforeDestroy() {
+    clearInterval(this.loadingTimer)
   },
 };
 </script>
