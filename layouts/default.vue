@@ -16,6 +16,15 @@ export default {
     isMemberRoute() {
       return this.$route.path.startsWith('/member')
     }
+  },
+  mounted() {
+    // 從外部頁面（如 LINE）返回時，清除卡住的 loading 狀態
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        this.$store.dispatch('loading/isLoading', false)
+        this.$store.dispatch('itemLoading/isLoading', false)
+      }
+    })
   }
 }
 </script>
