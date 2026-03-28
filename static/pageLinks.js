@@ -1,0 +1,1 @@
+export default ['appointmentRecord', 'ticket', 'consumption', 'appointment', 'addValue', 'customerBonus', 'lottery', 'membershipCard']

@@ -1,0 +1,62 @@
+<template>
+  <section class="w-full max-w-[768px] mx-auto pb-20 overflow-visible">
+    <HeaderTitle :title="'活動'" :display="display" />
+    <div class="w-full max-w-[768px] mx-auto lg:mt-[9.5rem] overflow-visible">
+      <Breadcrumb :title="'活動'" />
+      <div v-if="lottery.length"
+        class="rounded-md text-sm aos-init aos-animate min-h-[100px] py-4 flex flex-col gap-3 md:grid md:grid-cols-2">
+        <LotteryCard v-for="item in lottery" :key="item.tickets[0].serialNumber" :event="item" />
+      </div>
+      <div v-else class="rounded-mm-lg w-full bg-white mt-4">
+        <div class=" flex justify-center items-center min-h-[500px]">
+          <div>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+              class=" text-mm-primary">
+              <path opacity="0.3"
+                d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"
+                fill="currentColor" />
+              <rect x="7" y="17" width="6" height="2" rx="1" fill="currentColor" />
+              <rect x="7" y="12" width="10" height="2" rx="1" fill="currentColor" />
+              <rect x="7" y="7" width="6" height="2" rx="1" fill="currentColor" />
+              <path d="M15 8H20L14 2V7C14 7.6 14.4 8 15 8Z" fill="currentColor" />
+            </svg>
+          </div>
+          <div class=" text-mm-primary">無抽獎活動</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+  
+<script>
+export default {
+  name: 'lottery',
+  head() {
+    return {
+      meta: [
+        {
+          name: 'theme-color',
+          content: '#ffffff'
+        }
+      ]
+    }
+  },
+  data() {
+    return {
+      lottery: [],
+      display: true,
+    };
+  },
+  async mounted() {
+    const res = await this.api.CustomerEventTickets()
+    this.lottery = res.data.customerEventTickets
+    if (
+      this.$route.query.arrowDisplay !== undefined &&
+      this.$route.name === "member-lottery"
+    ) {
+      const isArrowDisplayForLine = JSON.parse( localStorage.getItem("merchant") )?.isArrowDisplayForLine;
+      this.display = isArrowDisplayForLine;
+    }
+  },
+}
+</script>
