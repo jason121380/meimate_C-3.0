@@ -119,7 +119,7 @@ export default {
       const res = await this.api.getLineBindLinkForCustomer(merchant.id);
       const link = res.data.getLineBindLinkForCustomer
       const uri = window.location.origin
-      window.location.assign(link +`&redirect_uri=${uri}/lineRedirect?bindAccount=true`)
+      window.location.href = link +`&redirect_uri=${uri}/lineRedirect?bindAccount=true`
     },
     onBindLineClose(type) {
       if (type === 'comfirm') {

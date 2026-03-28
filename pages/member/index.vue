@@ -359,9 +359,9 @@ export default {
       this.externalLink = merchantCusExternalLink;
     },
     async handleGetBindLink() {
-      this.$store.dispatch("loading/isLoading", true);
       const merchant = JSON.parse(localStorage.getItem("merchant"));
       const res = await this.api.getLineBindLinkForCustomer(merchant.id);
+      if (res.hasError) return;
       const link = res.data.getLineBindLinkForCustomer
       const uri = window.location.origin
       localStorage.setItem('lineBindFrom', 'member')
@@ -393,10 +393,10 @@ export default {
     handleMenuClick(item) {
       if (item.label === "登出") return this.logOut();
       if (item.path) return this.$router.push(`${item.path}`);
-      if (item.url) return window.location.assign(item.url);
+      if (item.url) return (window.location.href = item.url);
     },
     windowAssign(url) {
-      window.location.assign(url);
+      window.location.href = url;
     },
     getTel(tel) {
       // 

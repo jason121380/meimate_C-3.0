@@ -150,7 +150,7 @@ export default {
       return obj;
     },
     windowAssign(url) {
-      window.location.assign(url);
+      window.location.href = url;
     },
     openModal(message, type) {
       this.message = message;

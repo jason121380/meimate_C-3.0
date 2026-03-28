@@ -881,7 +881,7 @@ export default {
       if (this.isNewCus) {
         url += '?getLineData=true'
       }
-      window.location.assign(link +`&redirect_uri=${url}`)
+      window.location.href = link +`&redirect_uri=${url}`
     },
     async lineLogin() {
       await this.handleSetCacheData()
