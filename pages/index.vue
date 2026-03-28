@@ -151,6 +151,7 @@ export default {
       this.step = 1
       this.member.verifyCode = ''
       this.member.password = ''
+      this.getingPassword = false
       this.$nextTick(() => {
         this.$refs.phoneRef?.focus()
       })
