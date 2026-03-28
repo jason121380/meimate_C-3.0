@@ -559,9 +559,51 @@ export default {
       });
     }
     this.$store.dispatch('appointmentData/handleClearData')
+
+    // 偵測使用者從瀏覽器分頁切回 PWA，檢查 LINE 綁定結果
+    this._onVisibilityChange = async () => {
+      if (document.visibilityState !== 'visible') return
+      const resultStr = localStorage.getItem('lineBindResult')
+      if (!resultStr) return
+      try {
+        const result = JSON.parse(resultStr)
+        localStorage.removeItem('lineBindResult')
+        if (result.success) {
+          await this.getMemberInfoAndRecored()
+          this.$swal.fire({
+            icon: "success",
+            html: "<p class='text-base font-semibold text-gray-900'>LINE 帳號綁定成功</p>",
+            background: "#fff",
+            iconColor: "#FF6B2C",
+            timer: 3000,
+            showConfirmButton: false,
+            customClass: { popup: '!rounded-2xl !shadow-lg' }
+          });
+        } else {
+          this.$swal.fire({
+            icon: "error",
+            html: `<p class='text-base font-semibold text-gray-900'>${result.message || 'LINE 綁定失敗'}</p>`,
+            background: "#fff",
+            confirmButtonText: "我知道了",
+            customClass: {
+              popup: '!rounded-2xl !shadow-lg',
+              confirmButton: '!bg-gmb-orange-500 !rounded-full !px-8'
+            }
+          });
+        }
+      } catch (e) {
+        localStorage.removeItem('lineBindResult')
+      }
+      // 清除卡住的 loading
+      this.$store.dispatch('loading/isLoading', false)
+    }
+    document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
   beforeDestroy() {
     clearInterval(this.loadingTimer)
+    if (this._onVisibilityChange) {
+      document.removeEventListener('visibilitychange', this._onVisibilityChange)
+    }
   },
 };
 </script>
