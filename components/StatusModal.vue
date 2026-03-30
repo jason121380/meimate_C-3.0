@@ -6,8 +6,7 @@
     <transition name="fade">
       <div v-if="showModal"
         class="fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel">
-        <div data-aos="flip-left" data-aos-duration="400"
-          class="card w-full max-w-[768px] max-h-[80vh] relative z-[-1] p-5 bg-white rounded-mm-lg shadow-mm-lg">
+        <div class="card w-full max-w-[768px] max-h-[80vh] relative z-[-1] p-5 bg-white rounded-mm-lg shadow-mm-lg">
           <div class="flex flex-col items-center p-5">
             <div v-show="status != 'none'">
               <span class="text-mm-primary" v-if="status == 'success'">

@@ -6,7 +6,7 @@
     <transition name="fade">
       <div v-if="showModal"
         class="fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
-        <div data-aos="flip-left" data-aos-duration="400" class="w-full max-w-[768px] max-h-[80vh] bg-white rounded-2xl relative z-[-1] shadow-lg overflow-hidden">
+        <div class="w-full max-w-[768px] max-h-[80vh] bg-white rounded-2xl relative z-[-1] shadow-lg overflow-hidden">
           <!-- 關閉按鈕 -->
           <button @click="closeModal" class="absolute right-6 top-5 text-gray-400 hover:text-gray-600 transition-colors cancel">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

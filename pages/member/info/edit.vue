@@ -10,7 +10,7 @@
         <div class="w-10 pointer-events-none"></div>
       </div>
 
-      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden" data-aos="fade-up" data-aos-duration="300" data-aos-once="true">
+      <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
         <ValidationObserver v-slot="{ handleSubmit }">
           <form @submit.prevent="handleSubmit(customerSelfUpdate)">
             <div class="flex flex-col text-sm gap-5 p-5 md:p-7">

@@ -7,7 +7,7 @@
     </div>
 
     <div class="mt-5">
-      <Coupon @openReimbursement="handleOpenReimbursement($event)" v-for="(item, idx) in filterCoupons" :key="item.id" :id="item.id" :title="item.title" :discount="item.discount" :description="item.description" :time="item.time" :type="item.type" data-aos="zoom-in" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos" :data-aos-delay="100 + (idx * 100)" />
+      <Coupon @openReimbursement="handleOpenReimbursement($event)" v-for="(item, idx) in filterCoupons" :key="item.id" :id="item.id" :title="item.title" :discount="item.discount" :description="item.description" :time="item.time" :type="item.type" />
     </div>
 
     <Reimbursement :showModal="isShow" @cancelModal="cancelModal($event)" />

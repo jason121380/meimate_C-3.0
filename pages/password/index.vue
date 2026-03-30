@@ -3,14 +3,13 @@
     <client-only v-if="!isLoading">
       <div class="w-full max-w-[768px] mx-auto px-5 pt-10 pb-8">
         <!-- 標題 -->
-        <div class="mb-8 text-center" data-aos="fade-up" data-aos-once="true" data-aos-duration="500">
+        <div class="mb-8 text-center">
           <h1 class="text-2xl font-bold text-gray-900">設定密碼</h1>
           <p v-if="isNewCus" class="text-sm text-gray-400 mt-2">設定密碼方便下次快速登入</p>
         </div>
 
         <!-- 表單卡片 -->
-        <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200" data-aos-duration="700"
-          class="bg-white rounded-2xl border border-gray-100 p-6 shadow-mm">
+        <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-mm">
           <ValidationObserver v-slot="{ handleSubmit }">
             <form @submit.prevent="handleSubmit(setPassword)">
               <label v-pre for="password1Input" class="text-gray-500 text-xs font-medium mb-2 block">密碼</label>

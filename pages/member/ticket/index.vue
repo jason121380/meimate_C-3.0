@@ -9,7 +9,7 @@
         </button>
         <h1 class="text-xl font-bold text-gmb-orange-500">我的卡券</h1>
       </div>
-      <div v-if="merchants.length > 0 && !isLoading" data-aos="zoom-in" data-aos-duration="300" data-aos-once="true"
+      <div v-if="merchants.length > 0 && !isLoading"
         class="">
         <div class="relative mb-7">
           <label class="text-xs font-semibold text-gmb-orange-500 mb-2 block">店家</label>
@@ -29,8 +29,7 @@
           <Ticket v-for="(item, idx) in tickets" :key="item.couponId + idx" @openRecord="handleOpenRecord($event)"
             :id="item.couponId" :idx="idx" :title="item.couponName" :canUse="item.totalCount" :used="item.usedCount"
             :price="item.singleCouponPrice" :totalPrice="(item.singleCouponPrice * item.totalCount)"
-            :time="item.boughtDate" data-aos="zoom-in" :data-aos-delay="100 + (idx * 100)" data-aos-duration="300"
-            data-aos-once="true" data-aos-anchor="#position" />
+            :time="item.boughtDate" />
         </div>
       </div>
 

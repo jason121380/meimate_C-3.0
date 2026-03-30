@@ -12,8 +12,6 @@
         class="fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel shadow-[0px_2px_2px_rgba(0,0,0,0.25)]"
       >
         <div
-          data-aos="flip-left"
-          data-aos-duration="400"
           class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-mm relative z-[-1] text-gray-dark"
         >
           <div class="p-7">

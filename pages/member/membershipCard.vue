@@ -3,10 +3,6 @@
     <HeaderTitle :title="'會員卡'" :display="false"/>
     <div
       class="w-full max-w-[768px] mx-auto lg:mt-[9.5rem] overflow-y-auto mt-4"
-      data-aos="fade-up"
-      data-aos-once="true"
-      data-aos-duration="500"
-      data-aos-delay="150"
     >
       <Breadcrumb :title="'會員卡'" />
       <img

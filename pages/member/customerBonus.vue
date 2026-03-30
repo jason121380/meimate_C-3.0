@@ -12,8 +12,7 @@
       </div>
 
       <!-- 店家選擇 -->
-      <div v-if="merchants.length > 0 && !isLoading" data-aos="fade-up" data-aos-duration="300" data-aos-once="true"
-        data-aos-delay="100" data-aos-anchor="#firstPos">
+      <div v-if="merchants.length > 0 && !isLoading">
         <div class="relative mb-6">
           <label class="text-xs font-semibold text-gmb-orange-500 mb-2 block">店家</label>
           <select @change="getBonusRecords()" v-if="merchants.length > 0" v-model="selectMerchantId"
@@ -33,10 +32,8 @@
       </div>
 
       <!-- 紅利列表 -->
-      <div v-once v-if="addValueRecords.length > 0 && !isLoading" data-aos="fade-up" data-aos-duration="400"
-        data-aos-once="true" data-aos-delay="200" data-aos-anchor="#firstPos" class="flex flex-col gap-3">
-        <div v-for="(item, idx) in addValueRecords" :key="item.id" data-aos="fade" :data-aos-delay="500 + (idx * 100)"
-          data-aos-once="true" data-aos-duration="400" data-aos-anchor="#firstPos"
+      <div v-once v-if="addValueRecords.length > 0 && !isLoading" class="flex flex-col gap-3">
+        <div v-for="(item, idx) in addValueRecords" :key="item.id"
           class="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
           <div class="flex justify-between items-start mb-3">
             <div class="text-xs text-gray-400">

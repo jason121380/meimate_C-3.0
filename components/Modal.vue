@@ -6,8 +6,7 @@
     <transition name="fade">
       <div v-if="showModal" @click="cancelModalEmit($event)" class=" fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel
       shadow-[0_0.25rem_0.5rem_rgba(0, 0, 0, 0.1)]">
-        <div data-aos="flip-left" data-aos-duration="400"
-          class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-[2.1rem] relative z-[-1]">
+        <div class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-[2.1rem] relative z-[-1]">
           <div class="flex shrink-0 justify-between items-center px-7 py-5 border-b justify-content-between">
             <slot name="header"></slot>
             <!-- 關閉按鈕 -->

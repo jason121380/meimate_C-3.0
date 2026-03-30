@@ -5,8 +5,7 @@
         <h1 class="text-xl font-bold text-gmb-orange-500">個人中心</h1>
       </div>
       <!-- 暫時隱藏：會員卡片
-      <div v-if="!itemIsLoading" data-aos="fade-up" data-aos-duration="300" data-aos-once="true" data-aos-delay="100"
-        data-aos-anchor="#firstPos"
+      <div v-if="!itemIsLoading"
         class="w-full mb-6 mx-auto relative rounded-2xl overflow-hidden aspect-[1.8/1] shadow-lg border border-gray-900/10">
         <img v-if="!memberCard.membershipImage" src="/images/member/card-bg.webp"
           class="w-full h-full object-cover object-center bg-gray-800">
@@ -27,8 +26,7 @@
       -->
 
       <!-- 會員資料 -->
-      <div v-if="!isLoading && !itemIsLoading" data-aos="fade-up" data-aos-duration="300" data-aos-once="true"
-        data-aos-delay="200" data-aos-anchor="#firstPos" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
+      <div v-if="!isLoading && !itemIsLoading" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
         <ul class="text-[15px] font-medium text-gray-700 divide-y divide-gray-50">
           <li class="px-4 py-3.5 flex items-center">
             <span class="w-1/4 text-gray-400 font-normal">姓名</span>

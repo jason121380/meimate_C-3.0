@@ -21,7 +21,6 @@
       <!-- 預設門市 -->
       <div v-if="isShowDefault && defaultMerchant.id" class="mt-4">
         <div @click="searchDesigner(defaultMerchant.id), selectStore(defaultMerchant)"
-          data-aos="fade-up" data-aos-delay="100" data-aos-once="true" data-aos-duration="300" data-aos-anchor="#firstPos"
           class="store-card cursor-pointer"
           :class="{ 'store-card--active': isSelectedStore(defaultMerchant.id) }">
           <div class="flex items-center gap-3">
@@ -41,7 +40,6 @@
       <div v-if="merchants.length > 0 && !merchantsIsNull" class="w-full mt-3 flex flex-col gap-3">
         <div v-for="(item, idx) in merchants" :key="item.id"
           @click="searchDesigner(item.id), selectStore(item)"
-          data-aos="fade-up" :data-aos-delay="idx * 100" data-aos-once="true" data-aos-duration="300" data-aos-anchor="#firstPos"
           class="store-card cursor-pointer"
           :class="{ 'store-card--active': isSelectedStore(item.id) }">
           <div class="flex items-center gap-3">
@@ -66,12 +64,10 @@
       <ItemLoading />
 
       <!-- 選擇喜好設計師 -->
-      <h4 v-pre data-aos="fade-up" data-aos-delay="100" data-aos-duration="300" data-aos-once="true"
-        data-aos-anchor="#firstPos" class="text-base mt-10 mb-4 font-semibold text-gray-900">
+      <h4 v-pre class="text-base mt-10 mb-4 font-semibold text-gray-900">
         選擇喜好設計師
       </h4>
-      <div data-aos="fade-up" data-aos-delay="100" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
-        class="flex flex-col gap-3" :class="{ 'pt-4': designers.length === 0 }">
+      <div class="flex flex-col gap-3" :class="{ 'pt-4': designers.length === 0 }">
         <div v-if="searchingDesigners" class="min-h-[150px] w-full flex items-center justify-center">
           <div class="border-3 border-t-gmb-orange-500 border-gray-200 rounded-full w-10 h-10 animate-spin"></div>
         </div>
@@ -86,7 +82,6 @@
         <!-- 設計師列表 -->
         <div v-for="(item, idx) in designers" :key="item.id"
           @click="selectDesigner(item.id)"
-          data-aos="fade" :data-aos-delay="100 + idx * 50" data-aos-duration="300" data-aos-once="true" data-aos-anchor="#firstPos"
           class="designer-card"
           :class="{ 'designer-card--active': favoriteInfo.designer === item.id }">
           <div class="flex items-center gap-3">

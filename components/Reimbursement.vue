@@ -6,8 +6,7 @@
     <transition name="fade">
       <div v-if="showModal" @click="cancelModalEmit($event)"
         class="fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
-        <div data-aos="flip-left" data-aos-duration="400"
-          class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-md p-5 relative z-[-1]">
+        <div class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-md p-5 relative z-[-1]">
 
           <!-- 關閉按鈕 -->
           <button @click="cancelModalEmit($event)" v-if="showCancelBtn" class="absolute right-5 top-5 cancel">

@@ -3,7 +3,7 @@
     <div class="w-full max-w-[768px] mx-auto mt-10 lg:mt-[9.5rem] md:px-0">
       <p class="text-center font-extrabold mb-4">留下資料以便設計師聯絡您☺️</p>
       <OrderDetailCollapse v-if="OrderDetailCollapse"/>
-      <div data-aos="fade-up" data-aos-once="true" data-aos-delay="250" data-aos-duration="700" class="mt-4 card flex flex-col w-full justify-start">
+      <div class="mt-4 card flex flex-col w-full justify-start">
         <ValidationObserver v-if="!cusDataDisplay" v-slot="{ handleSubmit }" class="p-5 md:p-9">
           <form @submit.prevent="handleSubmit(step === 1 ? handleChangeStep : login)">
             <label v-pre for="phoneInput" class="text-gray-dark text-md">手機：</label>

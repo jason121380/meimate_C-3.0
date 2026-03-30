@@ -6,8 +6,7 @@
     <transition name="fade">
       <div v-if="showModal"
         class="fixed w-full h-full top-0 left-0 px-[5%] flex justify-center items-center z-40 cancel shadow-[0px_2px_2px_rgba(0,0,0,0.25)]">
-        <div data-aos="flip-left" data-aos-duration="400"
-          class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-2xl relative z-[-1] shadow-lg">
+        <div class="w-full max-w-[768px] max-h-[80vh] overflow-y-auto bg-white rounded-2xl relative z-[-1] shadow-lg">
           <div class="flex shrink-0 justify-between items-center px-7 py-5 border-b border-gray-100">
             <span class="font-bold text-lg text-gray-900">確定要取消預約嗎?</span>
             <!-- 關閉按鈕 -->
