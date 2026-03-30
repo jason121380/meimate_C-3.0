@@ -5,13 +5,13 @@
         <!-- 主內容區 -->
         <div class="w-full max-w-[768px] mx-auto px-5 py-10">
           <!-- 歡迎語 -->
-          <div class="mb-8" data-aos="fade-up" data-aos-once="true" data-aos-duration="500">
+          <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 leading-tight tracking-tight">Hi,</h1>
             <h2 class="text-base text-gray-400 leading-relaxed mt-1">今天想做什麼服務呢？</h2>
           </div>
 
           <!-- 表單卡片 -->
-          <div data-aos="fade-up" data-aos-once="true" data-aos-delay="200" data-aos-duration="700">
+          <div>
             <div class="bg-white rounded-2xl border border-gray-100 p-6 shadow-mm">
               <h3 class="text-[15px] font-semibold text-gray-900 mb-5">手機登入</h3>
               <ValidationObserver v-slot="{ handleSubmit }">

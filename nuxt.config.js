@@ -32,7 +32,7 @@ export default {
   ],
 
   transition: {
-    name: 'fade',
+    name: 'none',
     mode: 'out-in'
   },
 
@@ -43,7 +43,7 @@ export default {
     { src: '~/plugins/importServiceWorker.js', ssr: false },
     { src: '~/plugins/vee-validate.js', ssr: false },
     { src: '~/plugins/tw-element-path', ssr: false },
-    { src: '~/plugins/aos', ssr: false },
+    // { src: '~/plugins/aos', ssr: false },
     { src: '~/plugins/sweet-alert', ssr: false },
     { src: '~/plugins/v-calendar', ssr: false },
     { src: '~/directives/index' },
@@ -58,9 +58,7 @@ export default {
       // 切換頁面時讓滾動容器回到頂部
       const el = document.querySelector('.app-scroll-container')
       if (el) {
-        setTimeout(() => {
-          el.scrollTop = 0
-        }, 100)
+        el.scrollTop = 0
       }
 
       return { x: 0, y: 0 }

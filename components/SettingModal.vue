@@ -1,7 +1,7 @@
 <template>
   <div v-if="showModal" class="fixed inset-0 z-[100] flex items-end sm:items-center justify-center sm:p-4">
-    <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" @click="closeModal"></div>
-    <div class="relative bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl shadow-xl overflow-hidden animate-slide-up sm:animate-fade-in pb-[72px] sm:pb-0">
+    <div class="fixed inset-0 bg-gray-900/40 backdrop-blur-sm" @click="closeModal"></div>
+    <div class="relative bg-white w-full sm:max-w-md sm:rounded-2xl rounded-t-2xl shadow-xl overflow-hidden pb-[72px] sm:pb-0">
       
       <!-- Header -->
       <div class="px-6 py-4 flex items-center justify-between border-b border-gray-100">
@@ -113,18 +113,4 @@ export default {
 </script>
 
 <style scoped>
-@keyframes slide-up {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-.animate-slide-up {
-  animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.animate-fade-in {
-  animation: fade-in 0.2s ease-out;
-}
-@keyframes fade-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
 </style>

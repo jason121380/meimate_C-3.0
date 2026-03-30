@@ -130,16 +130,15 @@ export default {
 </script>
 <style>
 .slide-fade-enter-active {
-  transition: all 0.3s ease;
+  transition: none;
 }
 
 .slide-fade-leave-active {
-  transition: all 0.3s ease;
+  transition: none;
 }
 
 .slide-fade-enter,
 .slide-fade-leave-to {
-  transform: translateY(-10px);
-  opacity: 0;
+  opacity: 1;
 }
 </style>
