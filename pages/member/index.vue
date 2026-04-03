@@ -238,7 +238,7 @@ export default {
       title: "首頁",
       meta: [
         {
-          name: "theme-color",
+          hid: "theme-color", name: "theme-color",
           content: "#ffffff",
         },
       ],

@@ -146,7 +146,7 @@ export default {
       title: "預約紀錄",
       meta: [
         {
-          name: "theme-color",
+          hid: "theme-color", name: "theme-color",
           content: "#ffffff",
         },
       ],
