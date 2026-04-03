@@ -101,7 +101,7 @@
       </div>
 
       <!-- 底部操作欄 -->
-      <div class="fixed bottom-[56px] left-0 right-0 bg-white border-t border-gray-100 z-20 safe-area-bottom">
+      <div class="fixed bottom-[64px] left-0 right-0 bg-white border-t border-gray-100 z-20 safe-area-bottom">
         <div class="max-w-[768px] mx-auto px-5 py-3">
           <button @click="saveFavorite"
             class="w-full py-3.5 text-[15px] font-semibold rounded-full flex items-center justify-center gap-2 transition-all duration-300 shadow-sm"
