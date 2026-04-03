@@ -1,11 +1,14 @@
 <template>
-  <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50 safe-area-bottom">
-    <div class="max-w-[768px] mx-auto flex justify-around items-center h-14">
+  <nav class="fixed inset-x-0 bottom-0 z-50 flex w-full justify-center"
+       style="padding-bottom: env(safe-area-inset-bottom, 0px)">
+    <div class="glass-bar mx-auto mb-2 flex w-[calc(100%-2rem)] max-w-[480px] items-center justify-around rounded-full p-1">
       <button v-for="tab in displayTabs" :key="tab.path" @click="navigate(tab)"
-        class="flex flex-col items-center justify-center gap-0.5 flex-1 h-full transition-colors duration-200"
-        :class="isActive(tab) ? 'text-gmb-orange-500' : 'text-gray-300'">
-        <div v-html="tab.icon" class="w-6 h-6"></div>
-        <span class="text-[10px] font-medium">{{ tab.label }}</span>
+        class="relative flex flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-full py-2"
+        :class="isActive(tab) ? 'glass-pill' : ''">
+        <div v-html="tab.icon" class="h-5 w-5"
+          :class="isActive(tab) ? 'text-gmb-orange-500' : 'text-gray-400'"></div>
+        <span class="text-[10px] font-semibold leading-tight"
+          :class="isActive(tab) ? 'text-gmb-orange-500' : 'text-gray-400'">{{ tab.label }}</span>
       </button>
     </div>
   </nav>
@@ -71,7 +74,21 @@ export default {
 </script>
 
 <style scoped>
-.safe-area-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+.glass-bar {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 1px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 </style>

@@ -45,6 +45,6 @@ export default {
   overscroll-behavior-y: contain;
 }
 .member-content-padding {
-  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px));
 }
 </style>
