@@ -96,7 +96,7 @@
     </div>
 
     <!-- 底部操作欄 -->
-    <div class="fixed left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.02)] border-t border-gray-100 z-20" style="bottom: calc(56px + env(safe-area-inset-bottom, 0px));">
+    <div class="fixed left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.02)] border-t border-gray-100 z-20" style="bottom: calc(72px + env(safe-area-inset-bottom, 0px));">
       <div class="max-w-[768px] mx-auto px-5 py-3">
         <button @click="toSelectService()"
           class="w-full py-3.5 text-white text-[15px] font-semibold rounded-full flex items-center justify-center gap-2 transition-all duration-300"
