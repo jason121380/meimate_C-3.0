@@ -1,5 +1,5 @@
 <template>
-  <section id="firstPos" class="w-full max-w-[768px] mx-auto pb-16">
+  <section id="firstPos" class="w-full max-w-[768px] mx-auto">
     <div class="px-5 pt-6 w-full">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6">
@@ -330,7 +330,6 @@ export default {
     },
   },
   mounted() {
-    this._hasLoaded = true
     this.getOrders();
     this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
     if (
@@ -341,12 +340,6 @@ export default {
         localStorage.getItem("merchant")
       )?.isArrowDisplayForLine;
       this.display = isArrowDisplayForLine;
-    }
-  },
-  activated() {
-    // keep-alive 回到此頁時靜默刷新
-    if (this._hasLoaded) {
-      this.getOrders()
     }
   },
   beforeDestroy() {

@@ -62,7 +62,7 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: none;
 }
 .member-content-padding {
   padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
