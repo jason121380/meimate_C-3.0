@@ -119,7 +119,7 @@
       </div>
 
       <!-- 無資料顯示 -->
-      <div v-if="appointmentRecord.length === 0 && !isLoading" class="mt-8">
+      <div v-if="appointmentRecord.length === 0 && !isFetching" class="mt-8">
         <div class="bg-gray-50 border border-gray-100 border-dashed rounded-2xl p-12 flex flex-col items-center justify-center text-center">
           <div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-gray-300">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 22H5C4.4 22 4 21.6 4 21V3C4 2.4 4.4 2 5 2H14L20 8V21C20 21.6 19.6 22 19 22ZM12.5 18C12.5 17.4 12.6 17.5 12 17.5H8.5C7.9 17.5 8 17.4 8 18C8 18.6 7.9 18.5 8.5 18.5L12 18C12.6 18 12.5 18.6 12.5 18ZM16.5 13C16.5 12.4 16.6 12.5 16 12.5H8.5C7.9 12.5 8 12.4 8 13C8 13.6 7.9 13.5 8.5 13.5H15.5C16.1 13.5 16.5 13.6 16.5 13ZM12.5 8C12.5 7.4 12.6 7.5 12 7.5H8C7.4 7.5 7.5 7.4 7.5 8C7.5 8.6 7.4 8.5 8 8.5H12C12.6 8.5 12.5 8.6 12.5 8Z"/></svg>
@@ -161,6 +161,7 @@ export default {
       isGetting: false,
       isEnd: false,
       getting: "",
+      isFetching: false,
       isCancel: "",
       showModal: false,
       modalContent: '',
@@ -178,14 +179,23 @@ export default {
       return this.$store.state.loading.isLoading;
     },
   },
+  watch: {
+    appointmentRecord(newVal) {
+      if (this.selectTab === '未完成' && newVal.length > 0) {
+        this.$store.commit('indexCache/setAppointmentRecords', newVal)
+      }
+    }
+  },
   methods: {
     // 取得未完成紀錄
     async getOrders() {
       const storeId = this.$route.query.storeId || null
       cacelPendingForBookingRecords();
-      this.$store.dispatch("loading/isLoading", true);
+      this.isFetching = true;
 
-      this.appointmentRecord = [];
+      if (!this.appointmentRecord.length) {
+        this.appointmentRecord = [];
+      }
       this.isEnd = false;
       this.currentPage = 0;
       
@@ -204,9 +214,10 @@ export default {
           window.addEventListener("scroll", this.scrollGetOrders);
         }
         this.getting = "";
-        this.$store.dispatch("loading/isLoading", false);
+        this.isFetching = false;
       } catch (error) {
         this.getting = "";
+        this.isFetching = false;
         console.log(error);
       }
     },
@@ -319,6 +330,12 @@ export default {
     },
   },
   mounted() {
+    // 先用快取即時顯示
+    const cached = this.$store.state.indexCache.appointmentRecords
+    if (cached && cached.length > 0 && this.selectTab === '未完成') {
+      this.appointmentRecord = cached
+    }
+    // 背景刷新
     this.getOrders();
     this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
     if (
