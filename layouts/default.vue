@@ -57,6 +57,7 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: #ffffff;
 }
 .app-scroll-container {
   flex: 1;
