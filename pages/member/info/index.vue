@@ -1,5 +1,5 @@
 <template>
-  <section id="firstPos" class="w-full max-w-[768px] mx-auto min-h-full bg-gray-50 pb-20">
+  <section id="firstPos" class="w-full max-w-[768px] mx-auto bg-gray-50">
     <div class="px-5 pt-6 w-full">
       <div class="flex items-center mb-6">
         <h1 class="text-xl font-bold text-gmb-orange-500">個人中心</h1>
