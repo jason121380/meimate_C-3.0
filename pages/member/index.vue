@@ -633,6 +633,7 @@ export default {
         }
       });
     }
+    this._hasLoaded = true
     this.$store.dispatch('appointmentData/handleClearData')
 
     // 偵測使用者從瀏覽器分頁切回 PWA，檢查 LINE 綁定結果
@@ -673,6 +674,15 @@ export default {
       this.$store.dispatch('loading/isLoading', false)
     }
     document.addEventListener('visibilitychange', this._onVisibilityChange)
+  },
+  activated() {
+    // keep-alive 回到此頁時靜默刷新（不顯示 loading bar）
+    if (this._hasLoaded) {
+      Promise.all([
+        this.getMemberInfoAndRecored(),
+        this.getCustomerLatestReservation(),
+      ]).catch(() => {})
+    }
   },
   beforeDestroy() {
     clearInterval(this.loadingTimer)

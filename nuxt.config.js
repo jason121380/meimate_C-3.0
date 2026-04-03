@@ -14,7 +14,9 @@ export default {
       { name: 'mobile-web-app-capable', content: 'yes' },
       { name: 'apple-touch-fullscreen', content: 'yes' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
-      { name: 'google', content: 'notranslate' }
+      { name: 'google', content: 'notranslate' },
+      { name: 'theme-color', content: '#ffffff' },
+      { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
     ],
     script: [
       { async: true, src: 'https://www.googletagmanager.com/gtag/js?id=G-SRS53HF281' }

@@ -3,9 +3,7 @@
     <client-only>
       <SmallLoading></SmallLoading>
       <div ref="scrollContainer" class="app-scroll-container" :class="isMemberRoute ? 'member-content-padding' : ''">
-        <keep-alive :include="cachedPages">
-          <Nuxt></Nuxt>
-        </keep-alive>
+        <Nuxt keep-alive :keep-alive-props="{ include: cachedPages }" />
       </div>
       <BottomTabBar v-if="isMemberRoute" />
     </client-only>
