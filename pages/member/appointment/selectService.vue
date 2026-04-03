@@ -78,7 +78,7 @@
     </div>
 
     <!-- 底部操作欄 -->
-    <div class="fixed left-0 right-0 bg-white border-t border-gray-100 z-20 safe-area-bottom" style="bottom: 56px;">
+    <div class="fixed left-0 right-0 bg-white border-t border-gray-100 z-20 safe-area-bottom" style="bottom: calc(72px + env(safe-area-inset-bottom, 0px));">
       <div class="max-w-[768px] mx-auto px-5 py-2">
         <!-- 統計列 -->
         <div v-if="checkHasServiceItem" class="flex justify-between items-center mb-2">

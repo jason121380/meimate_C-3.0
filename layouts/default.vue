@@ -2,8 +2,10 @@
   <section class="safe-area-container">
     <client-only>
       <SmallLoading></SmallLoading>
-      <div class="app-scroll-container" :class="isMemberRoute ? 'member-content-padding' : ''">
-        <Nuxt></Nuxt>
+      <div ref="scrollContainer" class="app-scroll-container" :class="isMemberRoute ? 'member-content-padding' : ''">
+        <keep-alive :include="cachedPages">
+          <Nuxt></Nuxt>
+        </keep-alive>
       </div>
       <BottomTabBar v-if="isMemberRoute" />
     </client-only>
@@ -12,9 +14,28 @@
 
 <script>
 export default {
+  data() {
+    return {
+      // 需要快取的底部 tab 頁面（對應各頁的 name）
+      cachedPages: [
+        'member-index',
+        'member-info',
+        'member-appointmentRecord',
+        'appointment-index'
+      ]
+    }
+  },
   computed: {
     isMemberRoute() {
       return this.$route.path.startsWith('/member')
+    }
+  },
+  watch: {
+    '$route'() {
+      // 切換頁面時捲動回頂部
+      if (this.$refs.scrollContainer) {
+        this.$refs.scrollContainer.scrollTop = 0
+      }
     }
   },
   mounted() {

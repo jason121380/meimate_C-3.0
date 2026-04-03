@@ -330,12 +330,6 @@ export default {
     },
   },
   mounted() {
-    // 先用快取即時顯示
-    const cached = this.$store.state.indexCache.appointmentRecords
-    if (cached && cached.length > 0 && this.selectTab === '未完成') {
-      this.appointmentRecord = cached
-    }
-    // 背景刷新
     this.getOrders();
     this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
     if (

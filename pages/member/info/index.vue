@@ -172,22 +172,6 @@ export default {
     }
   },
   mounted() {
-    // 先用快取資料即時顯示
-    const cachedUserInfo = this.$store.state.indexCache.userInfo
-    const cachedMemberCard = this.$store.state.indexCache.memberCard
-    const cachedEditPasswordBtn = this.$store.state.indexCache.editPasswordBtn
-
-    if (cachedUserInfo && cachedUserInfo.name) {
-      this.memberInfo = cachedUserInfo
-    }
-    if (cachedMemberCard && cachedMemberCard.merchantname) {
-      this.memberCard = cachedMemberCard
-    }
-    if (cachedEditPasswordBtn) {
-      this.editPasswordBtn = cachedEditPasswordBtn
-    }
-
-    // 背景靜默刷新最新資料
     this.getCustomerPersonalData()
     this.customerMembershipRecord()
     this.checkPasswordSet()
