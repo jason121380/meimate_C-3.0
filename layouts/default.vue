@@ -3,7 +3,7 @@
     <client-only>
       <SmallLoading></SmallLoading>
       <div ref="scrollContainer" class="app-scroll-container" :class="isMemberRoute ? 'member-content-padding' : ''">
-        <Nuxt keep-alive :keep-alive-props="{ include: cachedPages }" />
+        <Nuxt keep-alive />
       </div>
       <BottomTabBar v-if="isMemberRoute" />
     </client-only>
@@ -12,17 +12,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      // 需要快取的底部 tab 頁面（對應各頁的 name）
-      cachedPages: [
-        'member-index',
-        'member-info',
-        'member-appointmentRecord',
-        'appointment-index'
-      ]
-    }
-  },
   computed: {
     isMemberRoute() {
       return this.$route.path.startsWith('/member')
