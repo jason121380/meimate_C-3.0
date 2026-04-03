@@ -330,6 +330,7 @@ export default {
     },
   },
   mounted() {
+    this._hasLoaded = true
     this.getOrders();
     this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
     if (
@@ -340,6 +341,12 @@ export default {
         localStorage.getItem("merchant")
       )?.isArrowDisplayForLine;
       this.display = isArrowDisplayForLine;
+    }
+  },
+  activated() {
+    // keep-alive 回到此頁時靜默刷新
+    if (this._hasLoaded) {
+      this.getOrders()
     }
   },
   beforeDestroy() {
