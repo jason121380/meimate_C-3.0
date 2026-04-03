@@ -1,9 +1,9 @@
 <template>
   <nav class="fixed inset-x-0 bottom-0 z-50 flex w-full justify-center"
        style="padding-bottom: env(safe-area-inset-bottom, 0px)">
-    <div class="glass-bar mx-auto mb-2 flex w-[calc(100%-2rem)] max-w-[480px] items-center justify-around rounded-full p-1">
+    <div class="glass-bar mx-auto mb-3 flex w-[calc(100%-2.5rem)] max-w-[480px] items-center justify-around rounded-full p-1.5">
       <button v-for="tab in displayTabs" :key="tab.path" @click="navigate(tab)"
-        class="relative flex flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-full py-2"
+        class="relative flex flex-1 cursor-pointer flex-col items-center justify-center gap-0.5 rounded-full py-2.5"
         :class="isActive(tab) ? 'glass-pill' : ''">
         <div v-html="tab.icon" class="h-5 w-5"
           :class="isActive(tab) ? 'text-gmb-orange-500' : 'text-gray-400'"></div>

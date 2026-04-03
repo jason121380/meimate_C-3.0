@@ -26,7 +26,7 @@
       -->
 
       <!-- 會員資料 -->
-      <div v-if="!isLoading && !itemIsLoading" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
+      <div v-if="hasData" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
         <ul class="text-[15px] font-medium text-gray-700 divide-y divide-gray-50">
           <li class="px-4 py-3.5 flex items-center">
             <span class="w-1/4 text-gray-400 font-normal">姓名</span>
@@ -69,11 +69,11 @@
 
       <!-- 操作按鈕 -->
       <div class="flex flex-col gap-3 mt-8">
-        <button v-if="!isLoading && !itemIsLoading" @click="$router.push('/member/info/edit')"
+        <button v-if="hasData" @click="$router.push('/member/info/edit')"
           class="w-full py-3 rounded-full font-semibold text-[15px] bg-gmb-orange-500 text-white hover:bg-gmb-orange-600 transition-all shadow-sm hover:shadow-md">修改個人資料</button>
-        <button v-if="!isLoading && !itemIsLoading && editPasswordBtn" @click="openPasswordModal"
+        <button v-if="hasData && editPasswordBtn" @click="openPasswordModal"
           class="w-full py-3 rounded-full font-semibold text-[15px] bg-white border border-gmb-orange-500 text-gmb-orange-500 hover:bg-gmb-orange-100/30 transition-colors">修改密碼</button>
-        <button v-if="!isLoading && !itemIsLoading" @click="showLogoutModal = true"
+        <button v-if="hasData" @click="showLogoutModal = true"
           class="w-full py-3 rounded-full font-medium text-[15px] text-gray-400 hover:text-red-500 transition-colors">登出</button>
       </div>
 
@@ -107,11 +107,8 @@ export default {
     }
   },
   computed: {
-    isLoading() {
-      return this.$store.state.loading.isLoading
-    },
-    itemIsLoading() {
-      return this.$store.state.itemLoading.isLoading
+    hasData() {
+      return this.memberInfo && this.memberInfo.name
     }
   },
   methods: {
@@ -128,49 +125,32 @@ export default {
 
       if (isCancel || e.target.nodeName === 'path') this.showMemberRules = false
     },
-    // 取得用戶資料
+    // 取得用戶資料（靜默刷新，不顯示 loading）
     getCustomerPersonalData() {
-
-      this.$store.dispatch('loading/isLoading', true)
-
       const needKey = 'name, cellphone, nickName, gender, email, lineId, birthday, address'
 
       this.api.getCustomerPersonalData(needKey)
         .then((res) => {
           this.memberInfo = res.data.getCustomerPersonalData
-
           this.$store.dispatch('indexCache/handleSetUserInfo', res.data.getCustomerPersonalData)
-          this.$store.dispatch('loading/isLoading', false)
         })
         .catch((err) => {
           console.log(err)
-          this.$store.dispatch('loading/isLoading', false)
         })
     },
-    // 取得會員卡片
+    // 取得會員卡片（靜默刷新）
     customerMembershipRecord() {
-      this.$store.dispatch('itemLoading/isLoading', true)
-
       this.api.customerMembershipRecord(this.merchant?.id)
         .then((res) => {
-          // 判斷是否為 html 格式
           if (res.data.customerMembershipRecord.unExpired[0]) {
-            if (
-              res.data.customerMembershipRecord.unExpired[0].membershipComment.indexOf('<p') === -1 &&
-              res.data.customerMembershipRecord.unExpired[0].membershipComment.indexOf('<img') === -1) {
-              res.data.customerMembershipRecord.unExpired[0]['isHtml'] = false
-            } else {
-              res.data.customerMembershipRecord.unExpired[0]['isHtml'] = true
-            }
-            this.memberCard = res.data.customerMembershipRecord.unExpired[0]
+            const card = res.data.customerMembershipRecord.unExpired[0]
+            card.isHtml = card.membershipComment.indexOf('<p') !== -1 || card.membershipComment.indexOf('<img') !== -1
+            this.memberCard = card
+            this.$store.commit('indexCache/setMemberCard', card)
           }
-
-          this.$store.dispatch('itemLoading/isLoading', false)
-
         })
         .catch((err) => {
           console.log(err)
-          this.$store.dispatch('itemLoading/isLoading', false)
         })
     },
     // 打開密碼彈窗
@@ -185,12 +165,29 @@ export default {
       try {
         const res = await this.api.checkIsCustomerPasswordSetWidthToken()
         this.editPasswordBtn = res.data.checkIsCustomerPasswordSetWidthToken
+        this.$store.commit('indexCache/setEditPasswordBtn', this.editPasswordBtn)
       } catch (error) {
         console.log('error: ', error);
       }
     }
   },
   mounted() {
+    // 先用快取資料即時顯示
+    const cachedUserInfo = this.$store.state.indexCache.userInfo
+    const cachedMemberCard = this.$store.state.indexCache.memberCard
+    const cachedEditPasswordBtn = this.$store.state.indexCache.editPasswordBtn
+
+    if (cachedUserInfo && cachedUserInfo.name) {
+      this.memberInfo = cachedUserInfo
+    }
+    if (cachedMemberCard && cachedMemberCard.merchantname) {
+      this.memberCard = cachedMemberCard
+    }
+    if (cachedEditPasswordBtn) {
+      this.editPasswordBtn = cachedEditPasswordBtn
+    }
+
+    // 背景靜默刷新最新資料
     this.getCustomerPersonalData()
     this.customerMembershipRecord()
     this.checkPasswordSet()
