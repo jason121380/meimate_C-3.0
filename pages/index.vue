@@ -112,7 +112,7 @@ export default {
     return {
       meta: [
         {
-          name: 'theme-color',
+          hid: 'theme-color', name: 'theme-color',
           content: '#ffffff'
         }
       ]

@@ -15,7 +15,7 @@ export default {
       { name: 'apple-touch-fullscreen', content: 'yes' },
       { name: 'apple-mobile-web-app-capable', content: 'yes' },
       { name: 'google', content: 'notranslate' },
-      { name: 'theme-color', content: '#ffffff' },
+      { hid: 'theme-color', name: 'theme-color', content: '#ffffff' },
       { name: 'apple-mobile-web-app-status-bar-style', content: 'default' }
     ],
     script: [
@@ -23,6 +23,7 @@ export default {
     ],
     link: [
       { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      { rel: "manifest", href: "/manifest.json" },
 
       // pwa 設定 apple 桌面 icon
       { rel: "apple-touch-icon", sizes: "128x128", href: "/favicon.png" }
