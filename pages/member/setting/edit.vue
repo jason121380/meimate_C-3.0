@@ -3,7 +3,12 @@
     <div class="w-full max-w-[768px] mx-auto pb-[120px] px-5 pt-6">
 
       <!-- 標題 -->
-      <h1 class="text-xl font-bold text-gmb-orange-500 mb-6">偏好設定</h1>
+      <div class="flex items-center gap-3 mb-6">
+        <button @click="$router.back()" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <h1 class="text-xl font-bold text-gmb-orange-500">偏好設定</h1>
+      </div>
 
       <!-- 搜尋框 -->
       <h4 v-pre class="text-base mb-3 font-semibold text-gray-900">選擇登入店家</h4>
@@ -101,7 +106,7 @@
       </div>
 
       <!-- 底部操作欄 -->
-      <div class="fixed left-0 right-0 bg-white border-t border-gray-100 z-20" style="bottom: calc(72px + env(safe-area-inset-bottom, 0px));">
+      <div class="fixed left-0 right-0 bottom-0 bg-white border-t border-gray-100 z-20" style="padding-bottom: env(safe-area-inset-bottom, 0px);">
         <div class="max-w-[768px] mx-auto px-5 py-3">
           <button @click="saveFavorite"
             class="w-full py-3.5 text-[15px] font-semibold rounded-full flex items-center justify-center gap-2 transition-all duration-300 shadow-sm"
