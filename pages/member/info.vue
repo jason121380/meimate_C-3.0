@@ -1,6 +1,6 @@
 <template>
   <section class="w-full max-w-[768px] mx-auto">
-    <nuxt-child />
+    <nuxt-child keep-alive />
   </section>
 </template>
 <script>
