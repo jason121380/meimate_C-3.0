@@ -40,6 +40,11 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 消除 click 300ms 延遲，加速互動回饋 */
+button, a, [role="button"], .cursor-pointer {
+  touch-action: manipulation;
+}
+
 .vc-highlights + span {
   background-color: #C4A882 !important;
 }

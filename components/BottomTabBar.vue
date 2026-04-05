@@ -75,20 +75,29 @@ export default {
 
 <style scoped>
 .glass-bar {
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(18px) saturate(180%);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow:
-    0 4px 30px rgba(0, 0, 0, 0.05),
-    0 1px 2px rgba(0, 0, 0, 0.03),
+    0 4px 24px rgba(0, 0, 0, 0.05),
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateZ(0);
+  contain: layout style paint;
+  will-change: transform;
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.45);
-  box-shadow:
-    0 1px 6px rgba(0, 0, 0, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+nav button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.08s ease;
+}
+nav button:active {
+  transform: scale(0.94);
 }
 </style>
