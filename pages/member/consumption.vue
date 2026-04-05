@@ -78,7 +78,8 @@ export default {
 
           if (this.totalPage <= 1) this.isEnd = true
           if (this.totalPage > 1) {
-            window.addEventListener('scroll', this.scrollGetRecords)
+            const target = document.querySelector('.app-scroll-container')
+            target && target.addEventListener('scroll', this.scrollGetRecords)
           }
 
           this.orders = res.data.getCustomerConsumptionRecordsV2.customerConsumptionRecords
@@ -105,7 +106,8 @@ export default {
 
         if (this.submitData.pageOffset === (this.totalPage - 1)) {
           this.isEnd = true
-          window.removeEventListener('scroll', this.scrollGetRecords)
+          const target = document.querySelector('.app-scroll-container')
+          target && target.removeEventListener('scroll', this.scrollGetRecords)
         }
 
         await this.$api.getCustomerConsumptionRecords(this.submitData)
@@ -142,7 +144,8 @@ export default {
   },
   beforeDestroy() {
     const vm = this
-    window.removeEventListener('scroll', vm.scrollGetRecords)
+    const target = document.querySelector('.app-scroll-container')
+    target && target.removeEventListener('scroll', vm.scrollGetRecords)
   }
 }
 </script>

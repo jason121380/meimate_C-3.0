@@ -230,7 +230,7 @@ export default {
   },
   data() {
     return {
-      merchantName: JSON.parse(localStorage.getItem('merchant')).name,
+      merchantName: (JSON.parse(localStorage.getItem('merchant')) || {}).name || '',
       link: link,
       menuList: [
         {
