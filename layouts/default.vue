@@ -55,6 +55,8 @@ export default {
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-y: none;
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 .member-content-padding {
   padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
