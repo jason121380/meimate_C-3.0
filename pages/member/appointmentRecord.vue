@@ -211,7 +211,7 @@ export default {
         // 判斷是否可滾動加載
         if (this.totalPage <= 1) this.isEnd = true;
         if (this.totalPage > 1) {
-          window.addEventListener("scroll", this.scrollGetOrders);
+          this.getScrollTarget() && this.getScrollTarget().addEventListener("scroll", this.scrollGetOrders);
         }
         this.getting = "";
         this.isFetching = false;
@@ -220,6 +220,9 @@ export default {
         this.isFetching = false;
         console.log(error);
       }
+    },
+    getScrollTarget() {
+      return document.querySelector('.app-scroll-container')
     },
     // 滾動加載
     async scrollGetOrders() {
@@ -237,7 +240,7 @@ export default {
 
         if (this.currentPage === this.totalPage - 1) {
           this.isEnd = true;
-          window.removeEventListener("scroll", this.scrollGetOrders);
+          this.getScrollTarget() && this.getScrollTarget().removeEventListener("scroll", this.scrollGetOrders);
         }
 
         const needKey =
@@ -344,7 +347,8 @@ export default {
   },
   beforeDestroy() {
     const vm = this;
-    window.removeEventListener("scroll", vm.scrollGetOrders);
+    const target = document.querySelector('.app-scroll-container')
+    target && target.removeEventListener("scroll", vm.scrollGetOrders);
   },
 };
 </script>

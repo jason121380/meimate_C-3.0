@@ -25,6 +25,16 @@
       </div>
       -->
 
+      <!-- Loading skeleton -->
+      <div v-if="!hasData" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
+        <ul class="divide-y divide-gray-50">
+          <li v-for="i in 8" :key="i" class="px-4 py-3.5 flex items-center">
+            <div class="w-1/4"><div class="h-3 w-12 bg-gray-100 rounded animate-pulse"></div></div>
+            <div class="w-3/4"><div class="h-3 w-32 bg-gray-100 rounded animate-pulse"></div></div>
+          </li>
+        </ul>
+      </div>
+
       <!-- 會員資料 -->
       <div v-if="hasData" class="bg-white rounded-2xl border border-gray-100 p-2 shadow-sm mb-6">
         <ul class="text-[15px] font-medium text-gray-700 divide-y divide-gray-50">
