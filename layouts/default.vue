@@ -2,10 +2,10 @@
   <section class="safe-area-container">
     <client-only>
       <SmallLoading></SmallLoading>
-      <div ref="scrollContainer" class="app-scroll-container" :class="[isMemberRoute ? 'member-content-padding' : '', isHomeRoute ? 'no-scroll' : '']">
+      <div ref="scrollContainer" class="app-scroll-container" :class="[isMemberRoute && !hideTabBar ? 'member-content-padding' : '', isHomeRoute ? 'no-scroll' : '']">
         <Nuxt keep-alive />
       </div>
-      <BottomTabBar v-if="isMemberRoute" />
+      <BottomTabBar v-if="isMemberRoute && !hideTabBar" />
     </client-only>
   </section>
 </template>
@@ -18,6 +18,10 @@ export default {
     },
     isHomeRoute() {
       return this.$route.path === '/member' || this.$route.path === '/member/'
+    },
+    hideTabBar() {
+      const hiddenRoutes = ['/member/setting/edit', '/member/info/edit']
+      return hiddenRoutes.some(p => this.$route.path.startsWith(p))
     }
   },
   watch: {
