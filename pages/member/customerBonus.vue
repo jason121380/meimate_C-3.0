@@ -2,7 +2,7 @@
   <section id="firstPos">
     <HeaderTitle :title="'點數'" :display="display" />
 
-    <div class="w-full max-w-[768px] mx-auto px-5 pb-20">
+    <div class="w-full max-w-[768px] mx-auto px-5">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6 pt-6">
         <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">

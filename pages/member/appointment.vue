@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full max-w-[768px] mx-auto pb-16">
+  <section class="w-full max-w-[768px] mx-auto">
     <HeaderTitle v-if="renderComponent" :display="display" :title="merchantName" :showClose="true" />
     <nuxt-child @inCheck="forceRerender" />
   </section>

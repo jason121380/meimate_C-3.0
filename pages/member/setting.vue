@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full max-w-[768px] mx-auto pb-20">
+  <section class="w-full max-w-[768px] mx-auto">
     <HeaderTitle :title="'偏好設定'" :back_home="back_home" />
     <nuxt-child />
   </section>
