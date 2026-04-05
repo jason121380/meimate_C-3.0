@@ -1,6 +1,6 @@
 <template>
   <section id="firstPos">
-    <div class="w-full max-w-[768px] mx-auto px-5 pt-6 pb-28">
+    <div class="w-full max-w-[768px] mx-auto px-5 pt-6">
 
       <!-- 標題 -->
       <div class="flex items-center mb-6">

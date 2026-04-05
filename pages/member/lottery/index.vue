@@ -1,5 +1,5 @@
 <template>
-  <section class="w-full max-w-[768px] mx-auto pb-20 overflow-visible">
+  <section class="w-full max-w-[768px] mx-auto overflow-visible">
     <HeaderTitle :title="'活動'" :display="display" />
     <div class="w-full max-w-[768px] mx-auto lg:mt-[9.5rem] overflow-visible">
       <Breadcrumb :title="'活動'" />

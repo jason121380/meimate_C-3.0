@@ -1,5 +1,5 @@
 <template>
-  <section id="firstPos" class="w-full max-w-[768px] mx-auto pb-16">
+  <section id="firstPos" class="w-full max-w-[768px] mx-auto">
     <HeaderTitle :title="'消費'" :display="display" />
     <div class="w-full max-w-[768px] mx-auto px-5">
       <!-- 標題 -->

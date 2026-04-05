@@ -11,15 +11,15 @@
     </div>
 
     <section class="w-full max-w-[768px] mx-auto">
-      <div class="px-5 pt-6 pb-4 w-full">
+      <div class="px-5 pt-5 pb-2 w-full">
 
         <!-- 標題 -->
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex justify-between items-center mb-4">
           <h1 class="text-xl font-bold text-gmb-orange-500">首頁</h1>
         </div>
 
         <!-- 會員資訊卡片 -->
-        <div class="flex items-center gap-4 mb-7">
+        <div class="flex items-center gap-4 mb-5">
           <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center flex-shrink-0 overflow-hidden">
             <template v-if="memberInfo.name">
               <span class="text-2xl font-bold text-gray-400">{{ memberInfo.name[0] }}</span>
@@ -74,7 +74,7 @@
         </div>
 
         <!-- 四宮格統計卡片 -->
-        <div class="grid grid-cols-2 gap-3 mb-7">
+        <div class="grid grid-cols-2 gap-3 mb-5">
           <!-- 我的預約 -->
           <div @click="$router.push('/member/appointmentRecord')" class="stat-card">
             <div class="flex items-center justify-between mb-3">
@@ -141,7 +141,7 @@
         </div>
 
         <!-- 選單列表 -->
-        <div class="mb-6">
+        <div class="mb-3">
           <!-- LINE 綁定 -->
           <div @click="!memberInfo.lineId ? handleGetBindLink() : null"
             class="menu-item"
@@ -193,7 +193,7 @@
         </div>
 
         <!-- 版本標示 -->
-        <div class="mt-8 mb-6 flex justify-center items-center pointer-events-none">
+        <div class="mt-3 mb-2 flex justify-center items-center pointer-events-none">
           <span class="text-[11px] text-gray-300 tracking-wider font-medium font-sans">v3.0 powered by BOS</span>
         </div>
 

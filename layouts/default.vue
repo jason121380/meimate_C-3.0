@@ -2,7 +2,7 @@
   <section class="safe-area-container">
     <client-only>
       <SmallLoading></SmallLoading>
-      <div ref="scrollContainer" class="app-scroll-container" :class="isMemberRoute ? 'member-content-padding' : ''">
+      <div ref="scrollContainer" class="app-scroll-container" :class="[isMemberRoute ? 'member-content-padding' : '', isHomeRoute ? 'no-scroll' : '']">
         <Nuxt keep-alive />
       </div>
       <BottomTabBar v-if="isMemberRoute" />
@@ -15,6 +15,9 @@ export default {
   computed: {
     isMemberRoute() {
       return this.$route.path.startsWith('/member')
+    },
+    isHomeRoute() {
+      return this.$route.path === '/member' || this.$route.path === '/member/'
     }
   },
   watch: {
@@ -55,5 +58,8 @@ export default {
 }
 .member-content-padding {
   padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+}
+.no-scroll {
+  overflow: hidden;
 }
 </style>
