@@ -3,7 +3,7 @@
     <client-only>
       <SmallLoading></SmallLoading>
       <div ref="scrollContainer" class="app-scroll-container" :class="[isMemberRoute && !hideTabBar ? 'member-content-padding' : '', isHomeRoute ? 'no-scroll' : '']">
-        <Nuxt keep-alive />
+        <Nuxt keep-alive :keep-alive-props="{ include: ['member'] }" />
       </div>
       <BottomTabBar v-if="isMemberRoute && !hideTabBar" />
     </client-only>

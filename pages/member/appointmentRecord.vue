@@ -334,7 +334,7 @@ export default {
   },
   mounted() {
     this.getOrders();
-    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
+    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.getItem('merchant'))?.isBookingCheckinEnabled)
     if (
       this.$route.query.arrowDisplay !== undefined &&
       this.$route.name === "member-appointmentRecord"
@@ -345,10 +345,20 @@ export default {
       this.display = isArrowDisplayForLine;
     }
   },
-  beforeDestroy() {
-    const vm = this;
+  activated() {
+    // keep-alive 回來時重新掛載 scroll listener（deactivated 時已移除）
+    if (this.totalPage > 1 && !this.isEnd) {
+      const target = this.getScrollTarget()
+      if (target) target.addEventListener("scroll", this.scrollGetOrders);
+    }
+  },
+  deactivated() {
     const target = document.querySelector('.app-scroll-container')
-    target && target.removeEventListener("scroll", vm.scrollGetOrders);
+    if (target) target.removeEventListener("scroll", this.scrollGetOrders);
+  },
+  beforeDestroy() {
+    const target = document.querySelector('.app-scroll-container')
+    if (target) target.removeEventListener("scroll", this.scrollGetOrders);
   },
 };
 </script>

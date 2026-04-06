@@ -84,9 +84,6 @@ export default {
     showModal(val) {
       if (val) {
         this.fetchSetting()
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = 'auto'
       }
     }
   },
