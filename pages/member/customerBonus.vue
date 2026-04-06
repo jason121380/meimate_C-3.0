@@ -32,7 +32,7 @@
       </div>
 
       <!-- 紅利列表 -->
-      <div v-once v-if="addValueRecords.length > 0 && !isLoading" class="flex flex-col gap-3">
+      <div v-if="addValueRecords.length > 0 && !isLoading" class="flex flex-col gap-3">
         <div v-for="(item, idx) in addValueRecords" :key="item.id"
           class="bg-white rounded-2xl border border-gray-100 p-4 shadow-sm">
           <div class="flex justify-between items-start mb-3">
@@ -79,7 +79,7 @@
 
 <script>
 export default {
-  name: 'addValue-index',
+  name: 'member-customerBonus',
   head() {
     return {
       meta: [

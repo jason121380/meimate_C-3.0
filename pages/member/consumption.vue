@@ -142,10 +142,13 @@ export default {
       this.display = isArrowDisplayForLine;
     }
   },
-  beforeDestroy() {
-    const vm = this
+  deactivated() {
     const target = document.querySelector('.app-scroll-container')
-    target && target.removeEventListener('scroll', vm.scrollGetRecords)
+    if (target) target.removeEventListener('scroll', this.scrollGetRecords)
+  },
+  beforeDestroy() {
+    const target = document.querySelector('.app-scroll-container')
+    if (target) target.removeEventListener('scroll', this.scrollGetRecords)
   }
 }
 </script>

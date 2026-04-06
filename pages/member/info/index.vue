@@ -185,6 +185,10 @@ export default {
     this.getCustomerPersonalData()
     this.customerMembershipRecord()
     this.checkPasswordSet()
+  },
+  activated() {
+    // keep-alive 回來時靜默刷新個人資料（例如剛從 edit 頁返回）
+    this.getCustomerPersonalData()
   }
 }
 </script>

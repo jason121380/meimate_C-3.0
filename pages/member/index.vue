@@ -599,6 +599,9 @@ export default {
     }
     document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
+  deactivated() {
+    clearInterval(this.loadingTimer)
+  },
   beforeDestroy() {
     clearInterval(this.loadingTimer)
     if (this._onVisibilityChange) {
