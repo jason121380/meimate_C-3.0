@@ -293,15 +293,21 @@ export default {
       }
     },
     loadData() {
+      // 重置狀態，確保不會被 early return guard 跳過
+      this.favoriteInfo = { id: "", name: "", designer: "" };
+      this.designers = [];
+
       // 取得門市設計師資料
       let merchant = JSON.parse(window.localStorage.getItem("merchant")) || {};
 
-      if (merchant?.id) this.searchDesigner(merchant?.id);
-
       // 取得預設門市資料
       this.defaultMerchant = merchant;
-      // 選擇門市
-      this.selectStore(this.defaultMerchant);
+
+      if (merchant?.id) {
+        this.searchingDesigners = true;
+        this.searchDesigner(merchant.id);
+        this.selectStore(merchant);
+      }
     },
     async getCloseCustomerBookingForCustomer() {
       const { data, hasError } = await this.api.getCloseCustomerBookingForCustomer();
@@ -348,11 +354,18 @@ export default {
         });
     },
   },
+  created() {
+    this._isMounting = true;
+  },
   mounted() {
     this.loadData();
   },
   activated() {
-    // keep-alive 快取時 mounted 不會重新執行，需要在 activated 重新載入資料
+    // 首次 mount 時 activated 也會觸發，跳過避免重複 API 呼叫
+    if (this._isMounting) {
+      this._isMounting = false;
+      return;
+    }
     this.loadData();
   },
 };
