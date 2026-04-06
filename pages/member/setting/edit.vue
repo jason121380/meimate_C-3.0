@@ -201,6 +201,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.searchingDesigners = false;
         });
     },
     // 選擇門市

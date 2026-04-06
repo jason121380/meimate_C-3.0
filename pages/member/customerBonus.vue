@@ -128,15 +128,22 @@ export default {
           this.$store.dispatch('loading/isLoading', false)
         })
     },
+    _clearCashAnimations() {
+      clearInterval(this._cashInterval1)
+      clearInterval(this._cashInterval2)
+      this._cashInterval1 = null
+      this._cashInterval2 = null
+    },
     cashAnimation() {
+      this._clearCashAnimations()
       if (this.cash >= 60) {
         const range = parseInt(this.cash / 60)
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += range
           if (this.showCash >= this.cash) {
             this.showCash = (this.cash - 10)
-            clearInterval(counterCash)
-            const newCounterCash = setInterval(() => {
+            clearInterval(this._cashInterval1)
+            this._cashInterval2 = setInterval(() => {
               this.showCash += 1
               if (this.showCash === (this.cash - 2)) {
                 setTimeout(() => {
@@ -145,19 +152,19 @@ export default {
                     this.showCash += 1
                   }, 500)
                 }, 300)
-                clearInterval(newCounterCash)
+                clearInterval(this._cashInterval2)
               }
             }, 100)
           }
         }, 10)
       } else if (this.cash >= 10 && this.cash < 60) {
         const range = parseInt(this.cash / 1)
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += range
           if (this.showCash >= this.cash) {
             this.showCash = (this.cash - 10)
-            clearInterval(counterCash)
-            const newCounterCash = setInterval(() => {
+            clearInterval(this._cashInterval1)
+            this._cashInterval2 = setInterval(() => {
               this.showCash += 1
               if (this.showCash === (this.cash - 2)) {
                 setTimeout(() => {
@@ -166,7 +173,7 @@ export default {
                     this.showCash += 1
                   }, 600)
                 }, 300)
-                clearInterval(newCounterCash)
+                clearInterval(this._cashInterval2)
               }
             }, 100)
           }
@@ -176,10 +183,10 @@ export default {
           this.showCash = this.cash
           return
         }
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += 1
           if (this.showCash === (this.cash - 1)) {
-            clearInterval(counterCash)
+            clearInterval(this._cashInterval1)
             setTimeout(() => {
               this.showCash += 1
             }, 500);
@@ -187,6 +194,10 @@ export default {
         }, 100)
       }
     }
+  },
+  deactivated() {
+    this._clearCashAnimations()
+    this.showCash = this.cash
   },
   mounted() {
     const merchant = JSON.parse(window.localStorage.getItem('merchant'))

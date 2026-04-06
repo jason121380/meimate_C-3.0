@@ -236,6 +236,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.$store.dispatch("loading/isLoading", false);
         });
     },
     getNDBookingItemCategory() {
@@ -266,6 +267,7 @@ export default {
         })
         .catch((err) => {
           console.log(err);
+          this.$store.dispatch("loading/isLoading", false);
         });
     },
     getCustomerReference() {

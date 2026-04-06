@@ -159,6 +159,7 @@ export default {
           })
           .catch((err) => {
             console.log(err);
+            this.searchingDesigners = false;
             reject(err);
           });
       })

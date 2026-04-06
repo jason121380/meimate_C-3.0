@@ -96,6 +96,7 @@ export default {
         this.$store.dispatch("loading/isLoading", false);
       } catch (error) {
         console.log(error);
+        this.$store.dispatch("loading/isLoading", false);
       }
     },
   },
