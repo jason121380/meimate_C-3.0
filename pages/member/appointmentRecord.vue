@@ -2,7 +2,7 @@
   <section id="firstPos" class="w-full max-w-[768px] mx-auto">
     <div class="px-5 pt-6 w-full">
       <!-- 標題 -->
-      <div class="flex items-center gap-3 mb-6">
+      <div class="flex items-center gap-3 mb-6 sticky top-0 z-10 bg-[#FAFAFA] py-2 -mt-2">
         <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         </button>

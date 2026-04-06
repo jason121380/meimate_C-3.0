@@ -1,7 +1,7 @@
 <template>
   <section id="firstPos" class="w-full max-w-[768px] mx-auto bg-gray-50">
     <div class="px-5 pt-6 w-full">
-      <div class="flex items-center mb-6">
+      <div class="flex items-center mb-6 sticky top-0 z-10 bg-gray-50 py-2 -mt-2">
         <h1 class="text-xl font-bold text-gmb-orange-500">個人中心</h1>
       </div>
       <!-- 暫時隱藏：會員卡片
