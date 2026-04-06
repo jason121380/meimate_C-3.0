@@ -195,9 +195,8 @@ export default {
       }
     }
   },
-  deactivated() {
+  beforeDestroy() {
     this._clearCashAnimations()
-    this.showCash = this.cash
   },
   mounted() {
     const merchant = JSON.parse(window.localStorage.getItem('merchant'))

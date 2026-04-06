@@ -354,18 +354,7 @@ export default {
         });
     },
   },
-  created() {
-    this._isMounting = true;
-  },
   mounted() {
-    this.loadData();
-  },
-  activated() {
-    // 首次 mount 時 activated 也會觸發，跳過避免重複 API 呼叫
-    if (this._isMounting) {
-      this._isMounting = false;
-      return;
-    }
     this.loadData();
   },
 };
