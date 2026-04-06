@@ -54,12 +54,12 @@
 
             <template v-if="step === 1">
               <button v-if="nextButton" type="submit"
-                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm mt-10 bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3 duration-300"
+                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm mt-10 bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3"
               >
                 {{  nextButtonLabel }}
               </button>
               <button v-if="lineButton" @click.prevent="lineLogin"
-                class="mx-auto md:max-w-[450px] relative w-full py-3 text-white text-sm mt-5 bg-[#06C755] rounded-mm shadow-md flex justify-center items-center gap-3 duration-300"
+                class="mx-auto md:max-w-[450px] relative w-full py-3 text-white text-sm mt-5 bg-[#06C755] rounded-mm shadow-md flex justify-center items-center gap-3"
               >
               <span class=" absolute -top-9 text-xs text-danger "v-if="(!isNewCus && !isPasswordSet && isLineBinded)">
                 此電話號碼僅可使用LINE登入<br/>
@@ -71,7 +71,7 @@
 
             <template v-if="step !== 1">
               <button :disabled="isLogin" type="submit"
-                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm mt-10 bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3 duration-300"
+                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm mt-10 bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3"
                 :class="{ 'bg-gray': isLogin }">
                 <i v-if="isLogin" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                 預約
@@ -249,7 +249,7 @@
               </div>
 
               <button :disabled="btnDisabled" type="submit"
-                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3 duration-300"
+                class="mx-auto md:max-w-[450px] w-full py-3 text-white text-sm bg-mm-accent rounded-mm shadow-md flex justify-center items-center gap-3"
                 :class="{ 'bg-gray': btnDisabled }">
                 <i v-if="btnDisabled" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                 送出預約
@@ -827,7 +827,7 @@ export default {
           } = bookingData
           this.$store.dispatch('appointmentData/handleSetStaticData', staticInfo)
           const staticData = JSON.parse(staticInfo)
-          const { name } = JSON.parse(window.localStorage.getItem("merchant"))
+          const { name } = JSON.parse(window.localStorage.getItem("merchant")) || {}
           const appointmentData = {
             merchantId: merchantId,
             merchantName: name,

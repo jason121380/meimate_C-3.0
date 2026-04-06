@@ -67,6 +67,7 @@ html::-webkit-scrollbar-thumb {
 /* 過場動畫 - 完全移除，零延遲切換 */
 .v-enter-active, .v-leave-active,
 .fade-enter-active, .fade-leave-active,
+.slide-fade-enter-active, .slide-fade-leave-active,
 .none-enter-active, .none-leave-active,
 .page-enter-active, .page-leave-active,
 .layout-enter-active, .layout-leave-active {
@@ -77,13 +78,15 @@ html::-webkit-scrollbar-thumb {
 
 .v-enter, .v-leave-to,
 .fade-enter, .fade-leave-to,
+.slide-fade-enter, .slide-fade-leave-to,
 .none-enter, .none-leave-to,
 .page-enter, .page-leave-to,
 .layout-enter, .layout-leave-to {
   opacity: 1 !important;
+  transform: none !important;
 }
 
-.v-move, .fade-move, .none-move {
+.v-move, .fade-move, .slide-fade-move, .none-move {
   transition: none !important;
 }
 

@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     async getData() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       try {
         const [personalData, membership] = await Promise.all([
           this.api.getCustomerPersonalData("name cellphone"),
@@ -96,6 +96,7 @@ export default {
         this.$store.dispatch("loading/isLoading", false);
       } catch (error) {
         console.log(error);
+        this.$store.dispatch("loading/isLoading", false);
       }
     },
   },

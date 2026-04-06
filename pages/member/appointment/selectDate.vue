@@ -191,6 +191,7 @@ export default {
         }
       } catch (error) {
         console.log(error)
+        this.$store.dispatch('loading/isLoading', false)
       }
     },
     async getNonDesignateBookingTimesWithRange(input) {
@@ -227,6 +228,7 @@ export default {
         }
       } catch (error) {
         console.log(error)
+        this.$store.dispatch('loading/isLoading', false)
       }
     },
     getDesignerBookingTimes(input) {

@@ -32,7 +32,7 @@
 
       <!-- 入金列表 -->
       <div v-if="addValueRecords.length > 0 && !isLoading" class="flex flex-col gap-3">
-        <div v-for="(item, idx) in addValueRecords" :key="item.id" class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm flex items-center justify-between hover:shadow transition-shadow">
+        <div v-for="(item, idx) in addValueRecords" :key="item.id" class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm flex items-center justify-between">
           <div class="flex flex-col gap-1">
             <div class="flex items-center gap-2">
               <span class="text-[13px] font-medium text-gray-600 bg-gray-100 px-2 py-0.5 rounded">{{ item.type }}</span>
@@ -120,15 +120,22 @@ export default {
           this.$store.dispatch('loading/isLoading', false)
         })
     },
+    _clearCashAnimations() {
+      clearInterval(this._cashInterval1)
+      clearInterval(this._cashInterval2)
+      this._cashInterval1 = null
+      this._cashInterval2 = null
+    },
     cashAnimation() {
+      this._clearCashAnimations()
       if (this.cash >= 60) {
         const range = parseInt(this.cash / 60)
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += range
           if (this.showCash >= this.cash) {
             this.showCash = (this.cash - 10)
-            clearInterval(counterCash)
-            const newCounterCash = setInterval(() => {
+            clearInterval(this._cashInterval1)
+            this._cashInterval2 = setInterval(() => {
               this.showCash += 1
               if (this.showCash === (this.cash - 2)) {
                 setTimeout(() => {
@@ -137,19 +144,19 @@ export default {
                     this.showCash += 1
                   }, 500)
                 }, 300)
-                clearInterval(newCounterCash)
+                clearInterval(this._cashInterval2)
               }
             }, 100)
           }
         }, 10)
       } else if (this.cash >= 10 && this.cash < 60) {
         const range = parseInt(this.cash / 1)
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += range
           if (this.showCash >= this.cash) {
             this.showCash = (this.cash - 10)
-            clearInterval(counterCash)
-            const newCounterCash = setInterval(() => {
+            clearInterval(this._cashInterval1)
+            this._cashInterval2 = setInterval(() => {
               this.showCash += 1
               if (this.showCash === (this.cash - 2)) {
                 setTimeout(() => {
@@ -158,7 +165,7 @@ export default {
                     this.showCash += 1
                   }, 600)
                 }, 300)
-                clearInterval(newCounterCash)
+                clearInterval(this._cashInterval2)
               }
             }, 100)
           }
@@ -168,10 +175,10 @@ export default {
           this.showCash = this.cash
           return
         }
-        const counterCash = setInterval(() => {
+        this._cashInterval1 = setInterval(() => {
           this.showCash += 1
           if (this.showCash === (this.cash - 1)) {
-            clearInterval(counterCash)
+            clearInterval(this._cashInterval1)
             setTimeout(() => {
               this.showCash += 1
             }, 500);
@@ -179,6 +186,10 @@ export default {
         }, 100)
       }
     }
+  },
+  deactivated() {
+    this._clearCashAnimations()
+    this.showCash = this.cash
   },
   mounted() {
     const merchant = JSON.parse(window.localStorage.getItem('merchant'))

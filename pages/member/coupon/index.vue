@@ -3,7 +3,7 @@
     <HeaderTitle :title= "'我的優惠券'" />
 
     <div class="flex justify-center gap-5 text-sm">
-      <button @click="selectedTab = item.label" v-for="item in tabMenu" :key="item.id" class="rounded-xl py-2 px-12 bg-white border border-mm-accent shadow-[0_5px_5px_rgba(0,0,0,0.2)] duration-300" :class="{'bg-mm-accent text-white shadow-none': selectedTab === item.label}">{{ item.label }}</button>
+      <button @click="selectedTab = item.label" v-for="item in tabMenu" :key="item.id" class="rounded-xl py-2 px-12 bg-white border border-mm-accent shadow-[0_5px_5px_rgba(0,0,0,0.2)]" :class="{'bg-mm-accent text-white shadow-none': selectedTab === item.label}">{{ item.label }}</button>
     </div>
 
     <div class="mt-5">

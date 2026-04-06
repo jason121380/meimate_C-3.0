@@ -115,7 +115,7 @@ export default {
     async handleGetBindLink() {
       this.$store.dispatch("loading/isLoading", true);
       try {
-        const merchant = JSON.parse(localStorage.getItem("merchant"));
+        const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
         const res = await this.api.getLineBindLinkForCustomer(merchant.id);
         const link = res.data.getLineBindLinkForCustomer
         const uri = window.location.origin

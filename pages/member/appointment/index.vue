@@ -159,6 +159,7 @@ export default {
           })
           .catch((err) => {
             console.log(err);
+            this.searchingDesigners = false;
             reject(err);
           });
       })
@@ -213,7 +214,7 @@ export default {
         });
         return;
       } 
-      const merchant = JSON.parse(window.localStorage.getItem("merchant"));
+      const merchant = JSON.parse(window.localStorage.getItem("merchant")) || {};
       let id = merchant?.id || "";
       this.userSelect.merchantName = merchant.name || "";
       this.userSelect.merchantId = merchant.id || "";

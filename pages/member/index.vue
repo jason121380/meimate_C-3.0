@@ -358,7 +358,7 @@ export default {
       this.externalLink = merchantCusExternalLink;
     },
     async handleGetBindLink() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       const res = await this.api.getLineBindLinkForCustomer(merchant.id);
       if (res.hasError) return;
       const link = res.data.getLineBindLinkForCustomer
@@ -369,7 +369,7 @@ export default {
       this.windowAssign(link + `&redirect_uri=${redirectUri}`)
     },
     async bindindLine() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       if (this.$route.query.code && !this.memberInfo.lineId) {
         try {
           const res = await this.api.customerBindWithLine({
@@ -493,7 +493,7 @@ export default {
       }
     },
     async getCustomerMembershipRecord() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       const { data, hasError } = await this.api.customerMembershipRecord(
         merchant.id
       );
@@ -542,7 +542,7 @@ export default {
     } catch (e) {
       this.isBookingCheckinEnabled = false
     }
-    if (localStorage.getItem('isLineBinded') !== undefined && localStorage.getItem('isLineBinded') === 'false') {
+    if (localStorage.getItem('isLineBinded') !== null && localStorage.getItem('isLineBinded') === 'false') {
       localStorage.removeItem('isLineBinded')
       Swal.fire({
         html: `<p class="text-base text-gray-700 leading-relaxed">您尚未綁定LINE服務<br/>點選綁定以收取預約提醒通知</p>`,
@@ -601,8 +601,32 @@ export default {
     }
     document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
+  async activated() {
+    this.merchantName = (JSON.parse(localStorage.getItem('merchant')) || {}).name || ''
+    this.startProgress()
+    try {
+      await Promise.all([
+        this.getMemberInfoAndRecored(),
+        this.getCustomerMembershipRecord(),
+        this.getCloseCustomerBookingForCustomer(),
+        this.getCustomerLatestReservation(),
+        this.handleExternalLink(),
+      ]);
+    } catch (err) {
+      console.log(err)
+    } finally {
+      this.finishProgress()
+    }
+    // Re-add listener since deactivated() removes it
+    if (this._onVisibilityChange) {
+      document.addEventListener('visibilitychange', this._onVisibilityChange)
+    }
+  },
   deactivated() {
     clearInterval(this.loadingTimer)
+    if (this._onVisibilityChange) {
+      document.removeEventListener('visibilitychange', this._onVisibilityChange)
+    }
   },
   beforeDestroy() {
     clearInterval(this.loadingTimer)

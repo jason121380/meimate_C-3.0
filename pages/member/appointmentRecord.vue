@@ -346,11 +346,12 @@ export default {
     }
   },
   activated() {
-    // keep-alive 回來時重新掛載 scroll listener（deactivated 時已移除）
-    if (this.totalPage > 1 && !this.isEnd) {
-      const target = this.getScrollTarget()
-      if (target) target.addEventListener("scroll", this.scrollGetOrders);
-    }
+    // keep-alive 回來時重新取得資料並掛載 scroll listener
+    this.appointmentRecord = []
+    this.currentPage = 0
+    this.isEnd = false
+    this.isGetting = false
+    this.getOrders()
   },
   deactivated() {
     const target = document.querySelector('.app-scroll-container')
