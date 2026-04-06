@@ -114,7 +114,7 @@ export default {
   mounted() {
     const { address, name, tel } = JSON.parse(
       window.localStorage.getItem("merchant")
-    );
+    ) || {};
     const remark = this.$store.state.appointmentData.remarkForCustomer;
     const service = this.$store.state.appointmentData.designerServiceIds;
     this.address = address || "";

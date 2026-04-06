@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     async getData() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       try {
         const [personalData, membership] = await Promise.all([
           this.api.getCustomerPersonalData("name cellphone"),

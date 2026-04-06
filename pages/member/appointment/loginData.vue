@@ -827,7 +827,7 @@ export default {
           } = bookingData
           this.$store.dispatch('appointmentData/handleSetStaticData', staticInfo)
           const staticData = JSON.parse(staticInfo)
-          const { name } = JSON.parse(window.localStorage.getItem("merchant"))
+          const { name } = JSON.parse(window.localStorage.getItem("merchant")) || {}
           const appointmentData = {
             merchantId: merchantId,
             merchantName: name,

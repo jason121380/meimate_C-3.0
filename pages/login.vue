@@ -317,7 +317,7 @@ export default {
       this.showModal = true
     },
     saveDataAndDoRouter() {
-      const merchant = JSON.parse(localStorage.getItem("merchant"));
+      const merchant = JSON.parse(localStorage.getItem("merchant")) || {};
       const designer = JSON.parse(localStorage.getItem("preferDesigner"));
       
       const data = {
