@@ -95,7 +95,7 @@ export default {
 nav button {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.08s ease;
+  transition: none;
 }
 nav button:active {
   transform: scale(0.94);

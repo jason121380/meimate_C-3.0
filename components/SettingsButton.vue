@@ -10,26 +10,26 @@
     </div>
     <transition name="slide-fade">
       <div v-show="showButtons" class="absolute right-0 top-full mt-2 bg-white rounded-xl border border-gray-100 flex flex-col gap-y-1 p-3 shadow-lg min-w-[160px]">
-        <div @click="$router.push('/member/info/edit')" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <div @click="$router.push('/member/info/edit')" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg active:bg-gray-50 cursor-pointer">
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
           </svg>
           <span class="text-sm text-gray-700">修改個人資料</span>
         </div>
-        <div @click="openPasswordModal" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <div @click="openPasswordModal" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg active:bg-gray-50 cursor-pointer">
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
           </svg>
           <span class="text-sm text-gray-700">修改密碼</span>
         </div>
-        <div @click="$router.push('/member/setting')" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors">
+        <div @click="$router.push('/member/setting')" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg active:bg-gray-50 cursor-pointer">
           <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
           </svg>
           <span class="text-sm text-gray-700">偏好設定</span>
         </div>
         <div class="border-t border-gray-100 mt-1 pt-1">
-          <div @click="openLogoutModal" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg hover:bg-red-50 cursor-pointer transition-colors">
+          <div @click="openLogoutModal" class="flex items-center gap-x-2.5 px-3 py-2.5 rounded-lg active:bg-red-50 cursor-pointer">
             <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
             </svg>

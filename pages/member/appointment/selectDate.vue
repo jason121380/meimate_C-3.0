@@ -62,13 +62,13 @@
           </p>
         </div>
         <div class="flex items-center gap-3">
-          <button @click="$router.go(-1)" class="w-12 h-12 border border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0 hover:bg-gray-50 transition-colors">
+          <button @click="$router.go(-1)" class="w-12 h-12 border border-gray-200 rounded-xl flex items-center justify-center flex-shrink-0 active:bg-gray-50">
             <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
             </svg>
           </button>
           <button @click="submit()"
-            class="flex-1 py-3.5 text-white text-[15px] font-semibold rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
+            class="flex-1 py-3.5 text-white text-[15px] font-semibold rounded-xl flex items-center justify-center gap-2"
             :disabled="!userSelect.time || !userSelect.date || isSubmitting"
             :class="{
               'bg-gray-200 text-gray-400 pointer-events-none': isSubmitting || !userSelect.time || !userSelect.date,
@@ -591,13 +591,11 @@ export default {
   border: 1px solid #f0f0f0;
   border-radius: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
   background: white;
   color: #374151;
 }
 
-.time-slot:hover {
-  border-color: #e5e5e5;
+.time-slot:active {
   background: #fafafa;
 }
 

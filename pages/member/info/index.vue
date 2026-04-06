@@ -17,7 +17,7 @@
           <span v-else-if="merchant.name"
             class="text-lg tracking-widest font-medium text-white shadow-sm">{{ merchant.name }}</span>
           
-          <div v-if="memberCard.membershipTextCoclor" class="absolute right-5 bottom-5 flex items-center gap-1.5 cursor-pointer opacity-80 hover:opacity-100 transition-opacity" @click="openMemberRules()">
+          <div v-if="memberCard.membershipTextCoclor" class="absolute right-5 bottom-5 flex items-center gap-1.5 cursor-pointer opacity-80 active:opacity-100" @click="openMemberRules()">
             <i class="bi bi-question-circle text-[15px]" :style="`color: ${memberCard.membershipTextCoclor}`"/>
             <span class="text-[13px] tracking-widest font-medium" :style="`color: ${memberCard.membershipTextCoclor}`">會籍說明</span>
           </div>
@@ -80,11 +80,11 @@
       <!-- 操作按鈕 -->
       <div class="flex flex-col gap-3 mt-8">
         <button v-if="hasData" @click="$router.push('/member/info/edit')"
-          class="w-full py-3 rounded-full font-semibold text-[15px] bg-gmb-orange-500 text-white hover:bg-gmb-orange-600 transition-all shadow-sm hover:shadow-md">修改個人資料</button>
+          class="w-full py-3 rounded-full font-semibold text-[15px] bg-gmb-orange-500 text-white active:bg-gmb-orange-600 shadow-sm">修改個人資料</button>
         <button v-if="hasData && editPasswordBtn" @click="openPasswordModal"
-          class="w-full py-3 rounded-full font-semibold text-[15px] bg-white border border-gmb-orange-500 text-gmb-orange-500 hover:bg-gmb-orange-100/30 transition-colors">修改密碼</button>
+          class="w-full py-3 rounded-full font-semibold text-[15px] bg-white border border-gmb-orange-500 text-gmb-orange-500 active:bg-gmb-orange-100/30">修改密碼</button>
         <button v-if="hasData" @click="showLogoutModal = true"
-          class="w-full py-3 rounded-full font-medium text-[15px] text-gray-400 hover:text-red-500 transition-colors">登出</button>
+          class="w-full py-3 rounded-full font-medium text-[15px] text-gray-400 active:text-red-500">登出</button>
       </div>
 
       <Modal :showModal="showMemberRules" :isMemberRules="true" @cancelModal="cancelModal($event)">

@@ -4,13 +4,13 @@
       <!-- Month navigation -->
       <div class="flex justify-between items-center mb-4">
         <div class="flex items-center gap-3">
-          <span class="cursor-pointer p-1 rounded-full hover:bg-gray-100 transition-colors" @click="month === 0 ? changeMonth(false) : month--, changeMonthAnimation()">
+          <span class="cursor-pointer p-1 rounded-full active:bg-gray-100" @click="month === 0 ? changeMonth(false) : month--, changeMonthAnimation()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M15 18l-6-6 6-6" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
           <h3 class="text-lg font-bold text-gray-900">{{ month + 1 }}月, {{ year }}</h3>
-          <span class="cursor-pointer p-1 rounded-full hover:bg-gray-100 transition-colors" @click="month === 11 ? changeMonth(true) : month++, changeMonthAnimation()">
+          <span class="cursor-pointer p-1 rounded-full active:bg-gray-100" @click="month === 11 ? changeMonth(true) : month++, changeMonthAnimation()">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
               <path d="M9 18l6-6-6-6" stroke="#374151" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -34,7 +34,7 @@
       <div v-if="isShow && !isGettingDate" class="grid grid-cols-7 text-center">
         <div v-for="push in adjustedFirstDay" :key="push + 'pushDay'" class="col-span-1 py-2.5"></div>
         <div @click="handleSelectDate(day)" v-for="day in monthInDays" :key="day + 'day'"
-          class="col-span-1 py-2.5 cursor-pointer relative z-10 transition-all duration-200"
+          class="col-span-1 py-2.5 cursor-pointer relative z-10"
           :class="{
             'text-gray-200 pointer-events-none': filterOldDate(day) || filterDayOffDate(day),
             'calendar-today': isToday(day) && !filterSelectedDate(day),

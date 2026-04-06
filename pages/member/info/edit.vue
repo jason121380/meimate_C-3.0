@@ -3,7 +3,7 @@
     <div class="px-5 pt-6 w-full">
       <!-- 頂端導覽列 + 返回按鈕 -->
       <div class="flex items-center justify-between mb-6 relative">
-        <button @click="$router.back()" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 shadow-sm hover:bg-gray-50 transition-colors z-10">
+        <button @click="$router.back()" class="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-600 shadow-sm active:bg-gray-50 z-10">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
         </button>
         <h1 class="text-xl font-bold text-gmb-orange-500 absolute left-1/2 -translate-x-1/2 w-full text-center pointer-events-none">修改個人資料</h1>
@@ -164,7 +164,7 @@
             </ValidationProvider>
             </div>
             <div class="border-t border-gray-50 p-5 bg-gray-50/30">
-              <button type="submit" class="w-full rounded-full py-3.5 bg-gmb-orange-500 text-white font-medium hover:bg-gmb-orange-600 transition-colors shadow-sm tracking-wide">
+              <button type="submit" class="w-full rounded-full py-3.5 bg-gmb-orange-500 text-white font-medium active:bg-gmb-orange-600 shadow-sm tracking-wide">
                 儲存修改
               </button>
             </div>

@@ -99,10 +99,10 @@
     <div class="fixed left-0 right-0 bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.02)] border-t border-gray-100 z-20" style="bottom: calc(72px + env(safe-area-inset-bottom, 0px));">
       <div class="max-w-[768px] mx-auto px-5 py-3">
         <button @click="toSelectService()"
-          class="w-full py-3.5 text-white text-[15px] font-semibold rounded-full flex items-center justify-center gap-2 transition-all duration-300"
+          class="w-full py-3.5 text-white text-[15px] font-semibold rounded-full flex items-center justify-center gap-2"
           :class="{
             'bg-gray-200 text-gray-400 pointer-events-none': !userSelect.designerId,
-            'bg-gmb-orange-500 hover:bg-gmb-orange-600 shadow-lg shadow-gmb-orange-200': userSelect.designerId,
+            'bg-gmb-orange-500 active:bg-gmb-orange-600 shadow-lg shadow-gmb-orange-200': userSelect.designerId,
           }">
           選擇服務項目
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -427,16 +427,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  border: 1px solid #f0f0f0;
+  border: 2px solid #f0f0f0;
   border-radius: 50rem;
   cursor: pointer;
-  transition: all 0.2s ease;
   background: white;
 }
 
-.designer-card:hover {
-  border-color: #e5e5e5;
-  background: #fafafa;
+.designer-card:active {
+  transform: scale(0.98);
 }
 
 .designer-card--active {

@@ -84,15 +84,15 @@
         <h4 class="text-xs font-semibold text-gmb-orange-500 mb-2">備註</h4>
         <input type="text" v-model="remarkForCustomer"
           placeholder="若預約不指定設計師，可於此處備註需要的服務項目。"
-          class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors">
+          class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200">
       </div>
 
       <div class="flex flex-col gap-4 mb-20">
         <input v-if="companionDisplay"  type="number" placeholder="同行人數" oninput="value=value.replace(/[^0-9]/g,'')"
-          v-model.number="companionCount" class="w-full bg-white border border-gray-200 focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors text-gray-900 text-[15px] rounded-full px-5 py-3.5 appearance-none focus:outline-none" />
+          v-model.number="companionCount" class="w-full bg-white border border-gray-200 focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 text-gray-900 text-[15px] rounded-full px-5 py-3.5 appearance-none focus:outline-none" />
         
         <div class="w-full relative col-span-3 md:col-span-2">
-          <select v-model="selectReference" class="w-full bg-white border border-gray-200 focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors text-gray-900 text-[15px] rounded-full px-5 py-3.5 appearance-none focus:outline-none">
+          <select v-model="selectReference" class="w-full bg-white border border-gray-200 focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 text-gray-900 text-[15px] rounded-full px-5 py-3.5 appearance-none focus:outline-none">
             <option value="" selected disabled>哪裡得知我們？</option>
             <option v-for="item in customerReference" :key="item" :value="item">
               {{ item }}
@@ -105,7 +105,7 @@
           </span>
         </div>
 
-        <button class="w-full bg-gmb-orange-500 text-white rounded-full py-3.5 mt-1 text-[15px] font-semibold hover:bg-gmb-orange-600 transition-all flex items-center justify-center gap-2 shadow-sm hover:shadow-md" :disabled="isSubmit"
+        <button class="w-full bg-gmb-orange-500 text-white rounded-full py-3.5 mt-1 text-[15px] font-semibold active:bg-gmb-orange-600 flex items-center justify-center gap-2 shadow-sm" :disabled="isSubmit"
           @click="handleSubmit">
           <i v-if="isSubmit" class="bi bi-arrow-repeat text-xl inline-block animate-spin-slow"/>
           確認

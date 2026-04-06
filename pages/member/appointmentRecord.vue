@@ -3,7 +3,7 @@
     <div class="px-5 pt-6 w-full">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6 sticky top-0 z-10 bg-[#FAFAFA] py-2 -mt-2">
-        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">
+        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 active:bg-gray-50 shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         </button>
         <h1 class="text-xl font-bold text-gmb-orange-500">預約紀錄</h1>
@@ -11,14 +11,14 @@
       <!-- 類別 Tab -->
       <div class="flex border-b border-gray-100 mb-6">
         <button @click="(selectTab = '未完成'), (currentPage = 0), getOrders()"
-          class="flex-1 py-3.5 text-[15px] font-medium transition-colors relative" 
-          :class="selectTab === '未完成' ? 'text-gmb-orange-500' : 'text-gray-400 hover:text-gray-600'">
+          class="flex-1 py-3.5 text-[15px] font-medium relative"
+          :class="selectTab === '未完成' ? 'text-gmb-orange-500' : 'text-gray-400 active:text-gray-600'">
           未完成
           <div v-show="selectTab === '未完成'" class="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-gmb-orange-500 rounded-t-full"></div>
         </button>
         <button @click="(selectTab = '已結束'), (currentPage = 0), getOrders()"
-          class="flex-1 py-3.5 text-[15px] font-medium transition-colors relative" 
-          :class="selectTab === '已結束' ? 'text-gmb-orange-500' : 'text-gray-400 hover:text-gray-600'">
+          class="flex-1 py-3.5 text-[15px] font-medium relative"
+          :class="selectTab === '已結束' ? 'text-gmb-orange-500' : 'text-gray-400 active:text-gray-600'">
           已結束
           <div v-show="selectTab === '已結束'" class="absolute bottom-0 left-1/4 right-1/4 h-0.5 bg-gmb-orange-500 rounded-t-full"></div>
         </button>
@@ -27,7 +27,7 @@
       <!-- 預約記錄列表 -->
       <div id="orderList" v-if="appointmentRecord.length > 0" class="flex flex-col gap-y-4">
         <div v-for="item in appointmentRecord" :key="item.id"
-          class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm hover:shadow transition-shadow">
+          class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
           <div class="p-4 md:p-5">
             <!-- 頂部：日期與狀態 -->
             <div class="flex justify-between items-center mb-2">
@@ -97,19 +97,19 @@
             class="flex items-center justify-end px-4 py-3 bg-gray-50/50 border-t border-gray-100 gap-2.5">
             
             <button v-show="item.troubleShooting && item.troubleShooting.length > 0"
-              class="mr-auto w-8 h-8 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center hover:bg-gray-100 transition-colors" 
+              class="mr-auto w-8 h-8 rounded-full bg-white border border-gray-200 text-gray-600 flex items-center justify-center active:bg-gray-100" 
               @click="getQuestionAnswer(item.id)">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
             </button>
 
             <button @click="$router.push('/member/appointment')" v-if="item.status === '設計師已取消' || item.status === '設計師已拒絕' || item.status === '已完成' || item.status === '客戶已取消'" 
-              class="py-2.5 px-6 text-white text-sm font-medium bg-gmb-orange-500 rounded-full hover:bg-gmb-orange-600 transition-colors shadow-md shadow-gmb-orange-200">
+              class="py-2.5 px-6 text-white text-sm font-medium bg-gmb-orange-500 rounded-full active:bg-gmb-orange-600 shadow-md shadow-gmb-orange-200">
               重新預約
             </button>
             
             <button @click="cancelReservation(item.id, item.date, item.designer)" v-if="!(item.status === '設計師已取消' || item.status === '設計師已拒絕' || item.status === '已完成' || item.status === '客戶已取消') && !isHidden(item)"
-              class="py-2.5 px-5 bg-white border border-gmb-orange-500 text-gmb-orange-500 text-sm font-medium flex items-center justify-center gap-2 rounded-full transition-colors shadow-sm" 
-              :class="isCancel === item.id ? 'opacity-50 pointer-events-none' : 'hover:bg-gmb-orange-500 hover:text-white'">
+              class="py-2.5 px-5 bg-white border border-gmb-orange-500 text-gmb-orange-500 text-sm font-medium flex items-center justify-center gap-2 rounded-full shadow-sm"
+              :class="isCancel === item.id ? 'opacity-50 pointer-events-none' : 'active:bg-gmb-orange-500 active:text-white'">
               <i v-if="isCancel === item.id" class="bi bi-arrow-repeat flex animate-spin"/>
               取消預約
             </button>

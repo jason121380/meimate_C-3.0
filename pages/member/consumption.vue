@@ -4,7 +4,7 @@
     <div class="w-full max-w-[768px] mx-auto px-5">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6 pt-6">
-        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">
+        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 active:bg-gray-50 shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         </button>
         <h1 class="text-xl font-bold text-gmb-orange-500">消費紀錄</h1>

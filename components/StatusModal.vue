@@ -28,7 +28,7 @@
             <div v-html="content" class="text-mm-text mt-4 text-center"></div>
           </div>
           <div v-show="timeout == 0" class="text-center pt-5">
-            <button @click="closeModal" class="rounded-mm py-2.5 px-10 bg-mm-accent text-white font-medium hover:opacity-90 transition-opacity">確認</button>
+            <button @click="closeModal" class="rounded-mm py-2.5 px-10 bg-mm-accent text-white font-medium active:opacity-90">確認</button>
           </div>
         </div>
       </div>
