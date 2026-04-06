@@ -1,6 +1,6 @@
 <template>
   <section class="w-full max-w-[768px] mx-auto">
-    <nuxt-child keep-alive />
+    <nuxt-child keep-alive :keep-alive-props="{ include: ['member-info'] }" />
   </section>
 </template>
 <script>
