@@ -602,9 +602,10 @@ export default {
 }
 
 .time-slot--active {
-  border-color: #FF6B2C;
-  background: #FF6B2C;
-  color: white;
+  border: 2px solid #FF6B2C;
+  background: #FFF5F0;
+  color: #FF6B2C;
+  font-weight: 600;
 }
 
 .time-slot--disabled {
