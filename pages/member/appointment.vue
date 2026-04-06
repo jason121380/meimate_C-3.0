@@ -1,7 +1,7 @@
 <template>
   <section class="w-full max-w-[768px] mx-auto">
     <HeaderTitle v-if="renderComponent" :display="display" :title="merchantName" :showClose="true" />
-    <nuxt-child keep-alive :keep-alive-props="{ include: ['appointment-index'] }" :transition="{ name: 'none', mode: '' }" @inCheck="forceRerender" />
+    <nuxt-child :transition="{ name: 'none', mode: '' }" @inCheck="forceRerender" />
   </section>
 </template>
 

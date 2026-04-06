@@ -601,33 +601,6 @@ export default {
     }
     document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
-  async activated() {
-    this.merchantName = (JSON.parse(localStorage.getItem('merchant')) || {}).name || ''
-    this.startProgress()
-    try {
-      await Promise.all([
-        this.getMemberInfoAndRecored(),
-        this.getCustomerMembershipRecord(),
-        this.getCloseCustomerBookingForCustomer(),
-        this.getCustomerLatestReservation(),
-        this.handleExternalLink(),
-      ]);
-    } catch (err) {
-      console.log(err)
-    } finally {
-      this.finishProgress()
-    }
-    // Re-add listener since deactivated() removes it
-    if (this._onVisibilityChange) {
-      document.addEventListener('visibilitychange', this._onVisibilityChange)
-    }
-  },
-  deactivated() {
-    clearInterval(this.loadingTimer)
-    if (this._onVisibilityChange) {
-      document.removeEventListener('visibilitychange', this._onVisibilityChange)
-    }
-  },
   beforeDestroy() {
     clearInterval(this.loadingTimer)
     if (this._onVisibilityChange) {

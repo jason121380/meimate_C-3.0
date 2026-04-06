@@ -142,18 +142,6 @@ export default {
       this.display = isArrowDisplayForLine;
     }
   },
-  activated() {
-    // Reset state and re-fetch records on revisit
-    this.orders = []
-    this.submitData.pageOffset = 0
-    this.isEnd = false
-    this.isGetting = false
-    this.getRecords()
-  },
-  deactivated() {
-    const target = document.querySelector('.app-scroll-container')
-    if (target) target.removeEventListener('scroll', this.scrollGetRecords)
-  },
   beforeDestroy() {
     const target = document.querySelector('.app-scroll-container')
     if (target) target.removeEventListener('scroll', this.scrollGetRecords)

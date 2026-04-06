@@ -167,14 +167,5 @@ export default {
       this.display = isArrowDisplayForLine;
     }
   },
-  activated() {
-    // Refresh merchants from localStorage and re-fetch coupons on revisit
-    this.merchants = JSON.parse(window.localStorage.getItem('allMerchants')) || []
-    const merchant = JSON.parse(window.localStorage.getItem('merchant'));
-    if (this.merchants[0]) {
-      this.selectStore = this.merchants[0].id ? this.merchants[0].id : merchant?.id;
-    }
-    this.getCoupons()
-  },
 }
 </script>

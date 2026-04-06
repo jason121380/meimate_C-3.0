@@ -345,18 +345,6 @@ export default {
       this.display = isArrowDisplayForLine;
     }
   },
-  activated() {
-    // keep-alive 回來時重新取得資料並掛載 scroll listener
-    this.appointmentRecord = []
-    this.currentPage = 0
-    this.isEnd = false
-    this.isGetting = false
-    this.getOrders()
-  },
-  deactivated() {
-    const target = document.querySelector('.app-scroll-container')
-    if (target) target.removeEventListener("scroll", this.scrollGetOrders);
-  },
   beforeDestroy() {
     const target = document.querySelector('.app-scroll-container')
     if (target) target.removeEventListener("scroll", this.scrollGetOrders);
