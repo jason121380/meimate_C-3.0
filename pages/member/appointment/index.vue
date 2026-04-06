@@ -427,16 +427,14 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 14px 20px;
-  border: 1px solid #f0f0f0;
+  border: 2px solid #f0f0f0;
   border-radius: 50rem;
   cursor: pointer;
-  transition: all 0.2s ease;
   background: white;
 }
 
-.designer-card:hover {
-  border-color: #e5e5e5;
-  background: #fafafa;
+.designer-card:active {
+  transform: scale(0.98);
 }
 
 .designer-card--active {
