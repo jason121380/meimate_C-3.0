@@ -513,7 +513,9 @@ export default {
       const { data, hasError } = await this.api.getCustomerLatestReservation();
       if (hasError) return;
       this.latestReservation = data.getCustomerLatestReservation;
-      this.telLink = `tel:+886-${data.getCustomerLatestReservation.merchant.tel.slice(1)}`
+      if (data.getCustomerLatestReservation?.merchant?.tel) {
+        this.telLink = `tel:+886-${data.getCustomerLatestReservation.merchant.tel.slice(1)}`
+      }
     },
   },
   async mounted() {

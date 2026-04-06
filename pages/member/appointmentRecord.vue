@@ -334,7 +334,7 @@ export default {
   },
   mounted() {
     this.getOrders();
-    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.merchant)?.isBookingCheckinEnabled)
+    this.isBookingCheckinEnabled = Boolean(JSON.parse(localStorage.getItem('merchant'))?.isBookingCheckinEnabled)
     if (
       this.$route.query.arrowDisplay !== undefined &&
       this.$route.name === "member-appointmentRecord"
