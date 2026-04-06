@@ -1,9 +1,9 @@
 <template>
   <section id="firstPos">
-    <div class="w-full max-w-[768px] mx-auto px-5 pt-6">
+    <div class="w-full max-w-[768px] mx-auto px-5 pt-6 pb-[140px]">
 
       <!-- 標題 -->
-      <div class="flex items-center mb-6">
+      <div class="flex items-center mb-6 sticky top-0 z-10 bg-[#FAFAFA] py-2 -mt-2">
         <h1 class="text-xl font-bold text-gmb-orange-500">立即預約</h1>
       </div>
 
