@@ -291,6 +291,17 @@ export default {
           });
       }
     },
+    loadData() {
+      // 取得門市設計師資料
+      let merchant = JSON.parse(window.localStorage.getItem("merchant")) || {};
+
+      if (merchant?.id) this.searchDesigner(merchant?.id);
+
+      // 取得預設門市資料
+      this.defaultMerchant = merchant;
+      // 選擇門市
+      this.selectStore(this.defaultMerchant);
+    },
     async getCloseCustomerBookingForCustomer() {
       const { data, hasError } = await this.api.getCloseCustomerBookingForCustomer();
       if (hasError) return
@@ -337,15 +348,11 @@ export default {
     },
   },
   mounted() {
-    // 取得門市設計師資料
-    let merchant = JSON.parse(window.localStorage.getItem("merchant")) || {};
-
-    if (merchant?.id) this.searchDesigner(merchant?.id);
-
-    // 取得預設門市資料
-    this.defaultMerchant = merchant;
-    // 選擇門市
-    this.selectStore(this.defaultMerchant);
+    this.loadData();
+  },
+  activated() {
+    // keep-alive 快取時 mounted 不會重新執行，需要在 activated 重新載入資料
+    this.loadData();
   },
 };
 </script>
