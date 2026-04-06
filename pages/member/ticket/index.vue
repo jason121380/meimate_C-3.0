@@ -4,7 +4,7 @@
     <div class="w-full max-w-[768px] mx-auto px-5 overflow-y-auto">
       <!-- 標題 -->
       <div class="flex items-center gap-3 mb-6 pt-6">
-        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 hover:bg-gray-50 transition-colors shrink-0">
+        <button @click="$router.go(-1)" class="w-9 h-9 rounded-full bg-white border border-gray-200 flex items-center justify-center text-gray-500 active:bg-gray-50 shrink-0">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
         </button>
         <h1 class="text-xl font-bold text-gmb-orange-500">我的卡券</h1>
@@ -14,7 +14,7 @@
         <div class="relative mb-7">
           <label class="text-xs font-semibold text-gmb-orange-500 mb-2 block">店家</label>
           <select @change="getCoupons()" v-if="merchants.length > 0" v-model="selectStore"
-            class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 text-[15px] text-gray-900 appearance-none focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors">
+            class="w-full bg-white border border-gray-200 rounded-full px-5 py-3 text-[15px] text-gray-900 appearance-none focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200">
             <option v-for="item in merchants" :key="item.id" :value="item.id">{{ item.name }}</option>
           </select>
           <span class="absolute right-5 bottom-3 text-gmb-orange-500 pointer-events-none">

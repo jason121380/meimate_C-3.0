@@ -16,7 +16,7 @@
               <div class="form-group relative mb-6">
                 <ValidationProvider name="密碼" rules="required|onlyEnNum" v-slot="{ errors }" class="w-full">
                   <input name="密碼" v-model="password" onpaste="return false" id="password1Input" type="password"
-                    class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
+                    class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200"
                     placeholder="請輸入密碼"
                     :class="{ '!border-red-400': errors.length > 0 }">
                   <span v-if="errors.length > 0" class="absolute left-4 -bottom-5 text-red-400 text-xs">{{
@@ -27,7 +27,7 @@
               <div class="form-group relative mb-6">
                 <ValidationProvider name="再次輸入密碼" rules="required|onlyEnNum" v-slot="{ errors }" class="w-full">
                   <input id="password2Input" name="再次輸入密碼" v-model="passwordCheck" type="password"
-                    class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
+                    class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200"
                     placeholder="請再次輸入密碼"
                     :class="{ '!border-red-400': errors.length > 0 || !isSame }">
                   <span v-if="errors.length > 0 || !isSame"
@@ -36,7 +36,7 @@
                 </ValidationProvider>
               </div>
               <button :disabled="isComfirm" type="submit"
-                class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 duration-300 hover:bg-gmb-orange-600 transition-all shadow-sm hover:shadow-md"
+                class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 active:bg-gmb-orange-600 shadow-sm"
                 :class="{ '!bg-gray-300 !shadow-none': isComfirm }">
                 <i v-if="isComfirm" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                 確認

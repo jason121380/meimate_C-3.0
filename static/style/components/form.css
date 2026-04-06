@@ -47,7 +47,7 @@
   border: 1px solid var(--bs-gray-300);
   border-radius: 0.5rem;
   box-shadow: none;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -107,8 +107,7 @@
   border-width: 0;
   border-inline-end-width: 1px;
   border-radius: 0;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -228,7 +227,7 @@ textarea.form-control-lg {
   border: 1px solid var(--bs-gray-300);
   border-radius: 0.5rem;
   box-shadow: none;
-  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -385,7 +384,7 @@ textarea.form-control-lg {
   background-image: var(--bs-form-switch-bg);
   background-position: left center;
   border-radius: 3.25rem;
-  transition: background-position 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -470,8 +469,7 @@ textarea.form-control-lg {
   border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.1);
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -503,8 +501,7 @@ textarea.form-control-lg {
   border: 0;
   border-radius: 1rem;
   box-shadow: 0 0.1rem 0.25rem rgba(0, 0, 0, 0.1);
-  transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -566,7 +563,7 @@ textarea.form-control-lg {
   pointer-events: none;
   border: 1px solid transparent;
   transform-origin: 0 0;
-  transition: opacity 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1006,7 +1003,7 @@ textarea.form-control.is-invalid {
   background-color: var(--bs-gray-100);
   border-color: var(--bs-gray-100);
   color: var(--bs-gray-700);
-  transition: color 0.2s ease;
+  transition: none;
 }
 
 .form-control.form-control-solid::placeholder {
@@ -1026,7 +1023,7 @@ textarea.form-control.is-invalid {
   background-color: var(--bs-gray-200);
   border-color: var(--bs-gray-200);
   color: var(--bs-gray-700);
-  transition: color 0.2s ease;
+  transition: none;
 }
 
 .form-control-solid-bg {

@@ -19,7 +19,7 @@
   color: var(--bs-nav-link-color);
   background: 0 0;
   border: 0;
-  transition: color 0.15s ease-in-out;
+  transition: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -172,7 +172,7 @@
   --bs-navbar-toggler-border-color: rgba(var(--bs-emphasis-color-rgb), 0.15);
   --bs-navbar-toggler-border-radius: 2.1rem;
   --bs-navbar-toggler-focus-width: 0.25rem;
-  --bs-navbar-toggler-transition: box-shadow 0.15s ease-in-out;
+  --bs-navbar-toggler-transition: none;
   position: relative;
   display: flex;
   flex-wrap: wrap;

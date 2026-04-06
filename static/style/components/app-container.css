@@ -668,7 +668,7 @@
     .menu
     > .menu-item:not(.here)
     > .menu-link:hover:not(.disabled):not(.active):not(.here) {
-    transition: color 0.2s ease;
+    transition: none;
     background-color: transparent;
     color: var(--bs-white);
   }
@@ -687,7 +687,7 @@
   }
 
   .app-header-menu .menu > .menu-item.here > .menu-link {
-    transition: color 0.2s ease;
+    transition: none;
     color: var(--bs-white);
   }
 
@@ -696,7 +696,7 @@
   }
 
   .app-header-menu .menu > .menu-item.show > .menu-link {
-    transition: color 0.2s ease;
+    transition: none;
     color: var(--bs-white);
   }
 
@@ -705,7 +705,7 @@
   }
 
   .app-header-menu .menu > .menu-item > .menu-link.active {
-    transition: color 0.2s ease;
+    transition: none;
     color: var(--bs-white);
   }
 

@@ -5,7 +5,7 @@
     <!-- 頂部進度條 -->
     <div v-if="pageLoading" class="fixed top-0 left-0 right-0 z-[100]">
       <div class="h-[3px] bg-gray-100">
-        <div class="h-full bg-gmb-orange-500 transition-all duration-300 ease-out rounded-r-full"
+        <div class="h-full bg-gmb-orange-500 rounded-r-full"
           :style="{ width: loadingProgress + '%' }"></div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <div class="flex-1">
             <div class="flex items-center gap-2">
               <p class="text-sm text-gray-400">{{ memberInfo.cellphone ? `+886 ${memberInfo.cellphone?.slice(1, 3)}***${memberInfo.cellphone?.slice(6)}` : '' }}</p>
-              <button @click="$router.push('/member/info/edit')" class="text-gray-300 hover:text-gray-500 transition-colors">
+              <button @click="$router.push('/member/info/edit')" class="text-gray-300 active:text-gray-500">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                 </svg>
@@ -48,7 +48,7 @@
           <div class="w-full h-[64px] bg-gray-100/80 animate-pulse rounded-full"></div>
         </div>
         <div v-else-if="isGetCloseCustomerBookingForCustomer === false" class="mb-4">
-          <div @click="$router.push('/member/appointment')" class="w-full bg-gmb-orange-500 rounded-full py-3.5 px-5 shadow-sm hover:shadow-md flex items-center justify-between cursor-pointer hover:bg-gmb-orange-600 transition-all group relative overflow-hidden">
+          <div @click="$router.push('/member/appointment')" class="w-full bg-gmb-orange-500 rounded-full py-3.5 px-5 shadow-sm flex items-center justify-between cursor-pointer group relative overflow-hidden">
             
             <div class="flex items-center gap-3.5 z-10 relative">
               <div class="w-9 h-9 shrink-0 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm pointer-events-none">
@@ -61,7 +61,7 @@
               </div>
             </div>
             
-            <div class="text-white group-hover:translate-x-1 transition-transform z-10 relative pr-1">
+            <div class="text-white z-10 relative pr-1">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
               </svg>
@@ -156,7 +156,7 @@
             <div v-if="memberInfo.lineId" class="px-2.5 py-1 bg-green-50 text-green-600 text-xs font-semibold tracking-wide rounded-full border border-green-200/50">
               已綁定
             </div>
-            <div v-else class="px-2.5 py-1 bg-gray-50 text-gray-500 text-xs font-semibold tracking-wide rounded-full border border-gray-200/50 flex items-center gap-1.5 hover:bg-gray-100 transition-colors">
+            <div v-else class="px-2.5 py-1 bg-gray-50 text-gray-500 text-xs font-semibold tracking-wide rounded-full border border-gray-200/50 flex items-center gap-1.5 active:bg-gray-100">
               未綁定
               <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </div>
@@ -620,12 +620,10 @@ export default {
   border-radius: 14px;
   padding: 16px;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.stat-card:hover {
-  border-color: #e5e7eb;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+.stat-card:active {
+  background: #fafafa;
 }
 
 .menu-item {
@@ -635,10 +633,9 @@ export default {
   padding: 16px 4px;
   border-bottom: 1px solid #f3f4f6;
   cursor: pointer;
-  transition: background 0.2s ease;
 }
 
-.menu-item:hover {
+.menu-item:active {
   background: #fafafa;
 }
 

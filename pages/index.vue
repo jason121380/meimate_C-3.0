@@ -21,11 +21,11 @@
                     <ValidationProvider name="手機" rules="required|onlyNumber" v-slot="{ errors }" class="w-full">
                       <input :readonly="readonly" ref="phoneRef" v-model="member.phone" onpaste="return false" maxlength="10"
                         id="phoneInput" type="tel"
-                        class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
+                        class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200"
                         placeholder="請輸入手機號碼"
                         :class="{ '!border-red-400': errors.length > 0, '!bg-gray-100 !text-gray-500': readonly }">
                       <button v-if="readonly" @click="resetToStep1" type="button"
-                        class="absolute right-1.5 top-1 bottom-1 px-4 text-gmb-orange-500 text-sm font-medium rounded-full hover:bg-gmb-orange-100/30 transition-colors">
+                        class="absolute right-1.5 top-1 bottom-1 px-4 text-gmb-orange-500 text-sm font-medium rounded-full active:bg-gmb-orange-100/30">
                         修改
                       </button>
                       <span v-if="errors.length > 0" class="absolute left-4 -bottom-5 text-red-400 text-xs">{{
@@ -38,13 +38,13 @@
                     <div class="form-group relative mb-6">
                       <ValidationProvider name="驗證碼" rules="required|onlyNumber" v-slot="{ errors }" class="w-full">
                         <input v-model="member.verifyCode" minlength="5" maxlength="5" id="verifyInput" type="tel"
-                          class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
+                          class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200"
                           placeholder="請輸入驗證碼">
                         <span v-if="errors.length > 0" class="absolute left-4 -bottom-5 text-red-400 text-xs">{{
                           errors[0] }}</span>
                         <button @click="getVerifyCode" type="button" :disabled="getCodeWaitingTimer || getingCode"
                           :class="{ 'bg-gmb-orange-500': !getCodeWaitingTimer, 'bg-gray-300': getCodeWaitingTimer || getingCode }"
-                          class="absolute right-1.5 top-1 bottom-1 px-4 text-white text-sm rounded-full flex items-center gap-1 transition-colors">
+                          class="absolute right-1.5 top-1 bottom-1 px-4 text-white text-sm rounded-full flex items-center gap-1">
                           <i v-if="getingCode" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                           取得驗證碼
                           <p v-if="getCodeWaitingTimer">({{ getCodeWaitingTimer }})</p>
@@ -58,7 +58,7 @@
                     <div class="form-group relative">
                       <ValidationProvider name="密碼" rules="required|onlyEnNum" v-slot="{ errors }" class="w-full">
                         <input v-model="member.password" id="verifyInput" type="password"
-                          class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200 transition-colors"
+                          class="w-full bg-gray-50/80 border border-gray-200 rounded-full px-5 py-3 text-sm text-gray-700 placeholder-gray-300 focus:outline-none focus:border-gmb-orange-400 focus:ring-1 focus:ring-gmb-orange-200"
                           placeholder="請輸入密碼"
                           :class="{ '!border-red-400': errors.length > 0 }">
                         <span v-if="errors.length > 0" class="absolute left-4 -bottom-5 text-red-400 text-xs">{{
@@ -72,7 +72,7 @@
 
                   <template v-if="step === 1">
                     <button :disabled="getingPassword" type="submit"
-                      class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 duration-300 hover:bg-gmb-orange-600 transition-all shadow-sm hover:shadow-md"
+                      class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 active:bg-gmb-orange-600 shadow-sm"
                       :class="{ '!bg-gray-300 !shadow-none': getingPassword }">
                       <i v-if="getingPassword" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                       下一步
@@ -81,7 +81,7 @@
 
                   <template v-if="step !== 1">
                     <button :disabled="isLogin" type="submit"
-                      class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 duration-300 hover:bg-gmb-orange-600 transition-all shadow-sm hover:shadow-md"
+                      class="w-full py-3 text-white text-[15px] font-semibold mt-5 bg-gmb-orange-500 rounded-full flex justify-center items-center gap-3 active:bg-gmb-orange-600 shadow-sm"
                       :class="{ '!bg-gray-300 !shadow-none': isLogin }">
                       <i v-if="isLogin" class="bi bi-arrow-repeat flex animate-spin-slow"/>
                       登入
