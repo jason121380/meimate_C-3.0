@@ -2,14 +2,6 @@
   <div>
     <HomeHeader />
 
-    <!-- 頂部進度條 -->
-    <div v-if="pageLoading" class="fixed top-0 left-0 right-0 z-[100]">
-      <div class="h-[3px] bg-gray-100">
-        <div class="h-full bg-gmb-orange-500 rounded-r-full"
-          :style="{ width: loadingProgress + '%' }"></div>
-      </div>
-    </div>
-
     <section class="w-full max-w-[768px] mx-auto">
       <div class="px-5 pt-5 pb-2 w-full">
 
@@ -279,9 +271,6 @@ export default {
       walletBalance: 0,
       bonusPoints: 0,
       showSettingModal: false,
-      pageLoading: true,
-      loadingProgress: 0,
-      loadingTimer: null,
     };
   },
   computed: {
@@ -299,28 +288,6 @@ export default {
     },
   },
   methods: {
-    startProgress() {
-      this.loadingProgress = 0
-      this.pageLoading = true
-      this.loadingTimer = setInterval(() => {
-        if (this.loadingProgress < 40) {
-          this.loadingProgress += 12
-        } else if (this.loadingProgress < 70) {
-          this.loadingProgress += 6
-        } else if (this.loadingProgress < 90) {
-          this.loadingProgress += 2
-        } else if (this.loadingProgress < 98) {
-          this.loadingProgress += 0.3
-        }
-      }, 80)
-    },
-    finishProgress() {
-      clearInterval(this.loadingTimer)
-      this.loadingProgress = 100
-      setTimeout(() => {
-        this.pageLoading = false
-      }, 200)
-    },
     getUrl() {
       this.handleUrl("線上商城", "shopURL");
       this.handleUrl("服務滿意度調查", "rankingURL");
@@ -519,8 +486,7 @@ export default {
     },
   },
   async mounted() {
-    this.startProgress()
-    // 所有 API 並行請求，不互相等待
+    // 所有 API 並行請求，頁面直接顯示，資料非同步填入
     try {
       await Promise.all([
         this.getMemberInfoAndRecored(),
@@ -531,8 +497,6 @@ export default {
       ]);
     } catch (err) {
       console.log(err)
-    } finally {
-      this.finishProgress()
     }
     this.getUrl();
     this.bindindLine();
@@ -602,7 +566,6 @@ export default {
     document.addEventListener('visibilitychange', this._onVisibilityChange)
   },
   beforeDestroy() {
-    clearInterval(this.loadingTimer)
     if (this._onVisibilityChange) {
       document.removeEventListener('visibilitychange', this._onVisibilityChange)
     }
