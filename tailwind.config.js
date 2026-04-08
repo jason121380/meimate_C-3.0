@@ -77,76 +77,73 @@ module.exports = {
       keyframes: {
         reverseSpin: {
           to: {
-            transform: 'rotate(-360deg)'
+            transform: 'rotate(-360deg) translateZ(0)'
           }
         },
         spinSlow: {
           to: {
-            transform: 'rotate(360deg)'
+            transform: 'rotate(360deg) translateZ(0)'
           }
         },
         reverseFloat: {
           '0%, 100%': {
-            transform: 'translateY(0px)'
+            transform: 'translate3d(0, 0px, 0)'
           },
           '50%': {
-            transform: 'translateY(-20px)'
+            transform: 'translate3d(0, -20px, 0)'
           }
         },
         float: {
           '0%, 100%': {
-            transform: 'translateY(0px)'
+            transform: 'translate3d(0, 0px, 0)'
           },
           '50%': {
-            transform: 'translateY(20px)'
+            transform: 'translate3d(0, 20px, 0)'
           }
         },
         shine: {
           '0%, 100%': {
+            'opacity': '1',
+            'transform': 'scale(1) translateZ(0)',
             'box-shadow': '0px 0px 6px 5px rgba(196, 168, 130, 0.2)'
           },
           '50%': {
-            'box-shadow': '0px 0px 1px 1px rgba(196, 168, 130, 0.1)'
+            'opacity': '0.5',
+            'transform': 'scale(0.8) translateZ(0)',
+            'box-shadow': '0px 0px 6px 5px rgba(196, 168, 130, 0.2)'
           }
         },
         shineYellow: {
           '0%, 100%': {
-            'box-shadow': '0px 0px 6px 5px rgba(196, 168, 130, 0.2)'
+            'opacity': '1',
+            'transform': 'scale(1) translateZ(0)',
+            'box-shadow': '0px 0px 6px 5px rgba(254, 180, 1, 0.2)'
           },
           '50%': {
-            'box-shadow': '0px 0px 1px 1px rgba(196, 168, 130, 0.1)'
+            'opacity': '0.5',
+            'transform': 'scale(0.8) translateZ(0)',
+            'box-shadow': '0px 0px 6px 5px rgba(254, 180, 1, 0.2)'
           }
         },
         floatText: {
           '0%, 100%': {
-            'transform': 'translateY(0px)'
+            'transform': 'translate3d(0, 0px, 0)'
           },
           '20%': {
-            'transform': 'translateY(-20px)'
+            'transform': 'translate3d(0, -20px, 0)'
           }
         },
         cut: {
-          '0%, 100%': {
-            transform: 'rotate(-30deg)'
-          },
-          '20%': {
-            transform: 'rotate(-60deg)'
-          },
-          '40%': {
-            transform: 'rotate(-30deg)'
-          },
-          '60%': {
-            transform: 'rotate(-60deg)'
-          },
-          '80%': {
-            transform: 'rotate(-30deg)'
-          },
+          '0%, 100%': { transform: 'rotate(-30deg) translateZ(0)' },
+          '20%': { transform: 'rotate(-60deg) translateZ(0)' },
+          '40%': { transform: 'rotate(-30deg) translateZ(0)' },
+          '60%': { transform: 'rotate(-60deg) translateZ(0)' },
+          '80%': { transform: 'rotate(-30deg) translateZ(0)' },
         }
       }
     },
   },
   plugins: [
-    require('tw-elements/dist/plugin'),
-    require('@tailwindcss/line-clamp')
+    require('tw-elements/dist/plugin')
   ],
 }

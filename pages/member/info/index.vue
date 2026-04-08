@@ -82,7 +82,7 @@
         <button v-if="hasData" @click="$router.push('/member/info/edit')"
           class="w-full py-3 rounded-full font-semibold text-[15px] bg-gmb-orange-500 text-white active:bg-gmb-orange-600 shadow-sm">修改個人資料</button>
         <button v-if="hasData && editPasswordBtn" @click="openPasswordModal"
-          class="w-full py-3 rounded-full font-semibold text-[15px] bg-white border border-gmb-orange-500 text-gmb-orange-500 active:bg-gmb-orange-100/30">修改密碼</button>
+          class="w-full py-3 rounded-full font-semibold text-[15px] bg-transparent border border-gmb-orange-500 text-gmb-orange-500 active:bg-gmb-orange-100/30">修改密碼</button>
         <button v-if="hasData" @click="showLogoutModal = true"
           class="w-full py-3 rounded-full font-medium text-[15px] text-gray-400 active:text-red-500">登出</button>
       </div>

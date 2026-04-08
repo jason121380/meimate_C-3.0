@@ -26,7 +26,11 @@ export default {
       { rel: "manifest", href: "/manifest.json" },
 
       // pwa 設定 apple 桌面 icon
-      { rel: "apple-touch-icon", sizes: "128x128", href: "/favicon.png" }
+      { rel: "apple-touch-icon", sizes: "128x128", href: "/favicon.png" },
+
+      // Preconnect Google Fonts 來加速外部資源下載
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: true }
     ]
   },
 
@@ -57,11 +61,14 @@ export default {
   components: true,
 
   router: {
+    prefetchLinks: false,
     scrollBehavior(to, from, savedPosition) {
-      // 切換頁面時讓滾動容器回到頂部
+      // 切換頁面時讓滾動容器回到頂部，加上 requestAnimationFrame 防止同步重排卡頓
       const el = document.querySelector('.app-scroll-container')
       if (el) {
-        el.scrollTop = 0
+        requestAnimationFrame(() => {
+          el.scrollTop = 0
+        })
       }
 
       return { x: 0, y: 0 }
@@ -146,6 +153,8 @@ export default {
   },
 
   build: {
+    extractCSS: true,
+    optimizeCSS: true,
     transpile: ["vee-validate/dist/rules"],
     postcss: {
       plugins: {
