@@ -40,7 +40,7 @@ export default {
 
   transition: {
     name: 'none',
-    mode: ''
+    mode: 'out-in'
   },
 
   plugins: [
@@ -63,14 +63,11 @@ export default {
   router: {
     prefetchLinks: false,
     scrollBehavior(to, from, savedPosition) {
-      // 切換頁面時讓滾動容器回到頂部，加上 requestAnimationFrame 防止同步重排卡頓
+      // 立即重置滾動位置，避免新頁面在舊位置閃現
       const el = document.querySelector('.app-scroll-container')
       if (el) {
-        requestAnimationFrame(() => {
-          el.scrollTop = 0
-        })
+        el.scrollTop = 0
       }
-
       return { x: 0, y: 0 }
     },
     extendRoutes(routes, resolve) {

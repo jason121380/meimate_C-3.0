@@ -26,12 +26,10 @@ export default {
   },
   watch: {
     '$route'() {
-      // 切換頁面時捲動回頂部，使用 nextTick 避免與 DOM 繪製衝突造成卡頓
-      this.$nextTick(() => {
-        if (this.$refs.scrollContainer) {
-          this.$refs.scrollContainer.scrollTop = 0
-        }
-      })
+      // 立即重置滾動位置，避免新頁面在舊捲動位置閃現
+      if (this.$refs.scrollContainer) {
+        this.$refs.scrollContainer.scrollTop = 0
+      }
     }
   },
   mounted() {
