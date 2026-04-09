@@ -40,7 +40,10 @@ export default {
 
   transition: {
     name: 'none',
-    mode: ''
+    mode: 'out-in',
+    css: false,
+    enter(el, done) { done() },
+    leave(el, done) { done() }
   },
 
   plugins: [

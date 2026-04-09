@@ -2,13 +2,24 @@
     <section class="member__container w-full min-h-full lg:pt-0 bg-[#FAFAFA]"
       :class="[routeIsMember ? ' pb-4' : 'pb-8']"
     >
-      <nuxt-child :transition="{ name: 'none', mode: '' }" />
+      <nuxt-child :transition="pageTransition" />
     </section>
 </template>
 
 <script>
 export default {
   name: 'member',
+  data() {
+    return {
+      pageTransition: {
+        name: 'none',
+        mode: 'out-in',
+        css: false,
+        enter(el, done) { done() },
+        leave(el, done) { done() }
+      }
+    }
+  },
   mounted() {
     document.body.addEventListener('dblclick', (e) => {
       e.preventDefault()
