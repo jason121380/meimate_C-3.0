@@ -2,7 +2,7 @@
     <section class="member__container w-full min-h-full lg:pt-0 bg-[#FAFAFA]"
       :class="[routeIsMember ? ' pb-4' : 'pb-8']"
     >
-      <nuxt-child :transition="{ name: 'none', mode: 'out-in' }" />
+      <nuxt-child :transition="{ name: 'none', mode: '' }" />
     </section>
 </template>
 

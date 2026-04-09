@@ -40,7 +40,7 @@ export default {
 
   transition: {
     name: 'none',
-    mode: 'out-in'
+    mode: ''
   },
 
   plugins: [
