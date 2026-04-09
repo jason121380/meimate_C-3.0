@@ -57,7 +57,7 @@ export default {
   methods: {
     navigate(tab) {
       if (this.$route.path !== tab.path) {
-        this.$router.replace(tab.path)
+        this.$router.push(tab.path)
       }
     },
     isActive(tab) {
