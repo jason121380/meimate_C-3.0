@@ -76,12 +76,12 @@ html::-webkit-scrollbar-thumb {
   transition-duration: 0s !important;
 }
 
-.v-enter, .v-enter-to, .v-leave, .v-leave-to,
-.fade-enter, .fade-enter-to, .fade-leave, .fade-leave-to,
-.slide-fade-enter, .slide-fade-enter-to, .slide-fade-leave, .slide-fade-leave-to,
-.none-enter, .none-enter-to, .none-leave, .none-leave-to,
-.page-enter, .page-enter-to, .page-leave, .page-leave-to,
-.layout-enter, .layout-enter-to, .layout-leave, .layout-leave-to {
+.v-enter, .v-leave-to,
+.fade-enter, .fade-leave-to,
+.slide-fade-enter, .slide-fade-leave-to,
+.none-enter, .none-leave-to,
+.page-enter, .page-leave-to,
+.layout-enter, .layout-leave-to {
   opacity: 1 !important;
   transform: none !important;
 }
